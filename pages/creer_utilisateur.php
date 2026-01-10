@@ -3,56 +3,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../database.php';
-
-/**
- * Fonction pour créer un nouvel utilisateur
- * @param PDO $pdo Instance PDO de connexion
- * @param string $pseudo Pseudo de l'utilisateur
- * @param string $email Email de l'utilisateur
- * @param string $mot_de_passe Mot de passe en clair
- * @return bool True si création réussie, False sinon
- */
-function creerUtilisateur($pdo, $pseudo, $email, $mot_de_passe) {
-    // VALIDATION : Pseudo (3-50 caractères alphanumériques)
-    if (!preg_match('/^[a-zA-Z0-9_]{3,50}$/', $pseudo)) {
-        throw new Exception("Le pseudo doit contenir entre 3 et 50 caractères alphanumériques.");
-    }
-    
-    // VALIDATION : Email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        throw new Exception("L'adresse email n'est pas valide.");
-    }
-    
-    // VALIDATION : Mot de passe (min 8 caractères)
-    if (strlen($mot_de_passe) < 8) {
-        throw new Exception("Le mot de passe doit contenir au moins 8 caractères.");
-    }
-    
-    // SÉCURITÉ : Hashage du mot de passe avec bcrypt
-    $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_BCRYPT, ['cost' => 12]);
-    
-    try {
-        // Requête préparée pour éviter les injections SQL
-        $sql = "INSERT INTO utilisateur (pseudo, email, mot_de_passe) 
-                VALUES (:pseudo, :email, :mot_de_passe)";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':pseudo' => $pseudo,
-            ':email' => $email,
-            ':mot_de_passe' => $mot_de_passe_hash
-        ]);
-        
-        return true;
-        
-    } catch(PDOException $e) {
-        // Gestion de l'erreur d'email déjà existant (contrainte UNIQUE)
-        if ($e->getCode() == 23000) {
-            throw new Exception("Cet email est déjà utilisé.");
-        }
-        throw $e;
-    }
-}
+require_once __DIR__ . '/../includes/functions.php';
 
 // ========================================
 // FORMULAIRE DE CRÉATION D'UTILISATEUR
