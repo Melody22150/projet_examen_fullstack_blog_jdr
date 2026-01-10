@@ -1,0 +1,8 @@
+Vulnérabilité identifiée,Risque OWASP,Solution appliquée,Preuve/Test,Annexe
+Injection SQL,A03:2021,Requêtes préparées PDO,Test injection bloquée,D
+Mots de passe en clair,A02:2021,Hashage bcrypt (coût 12),5 tests hashage réussis,D
+Attaque XSS,A03:2021,htmlspecialchars(),Balises converties en entités,C
+Validation insuffisante,A03:2021,filter_var + regex + contraintes SQL,6 tests validation réussis,D
+Email doublon,Intégrité données,Contrainte UNIQUE + vérification PHP,Test doublon détecté,D
+Note invalide (0 ou 11),Intégrité données,Contrainte CHECK (1-5),Test note 0 rejetée,D
+Suppression orpheline,Intégrité référentielle,ON DELETE CASCADE,Test suppression en cascade,D

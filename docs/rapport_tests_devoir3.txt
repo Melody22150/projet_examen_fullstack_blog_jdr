@@ -1,0 +1,110 @@
+
+===========================
+RAPPORT DE TESTS – Devoir 3 (Les Chroniques du JDR)
+===========================
+
+Date : 16 juillet 2025
+
+===========================
+PAGE D'ACCUEIL (index.html)
+===========================
+
+🔹 Fonctionnalité : Message de bienvenue personnalisé
+-----------------------------------------------------
+Description :
+Un cadre s’affiche au premier chargement de la page pour demander le prénom de l’utilisateur. 
+Une fois saisi, un message de bienvenue s’affiche 5 secondes puis disparaît. 
+Le prénom est stocké dans localStorage pour éviter que le message ne réapparaisse.
+
+Méthode de test :
+1. Ouvrir la page d’accueil dans un navigateur en mode navigation privée.
+2. Saisir un prénom ("Alice")
+3. Observer l’affichage du message personnalisé.
+4. Recharger la page.
+
+Résultat :
+Cela fonctionne comme prévu.
+Le message ne s’affiche plus après rechargement (mais le message réapparaît quand on retourne sur la page d'accueil puis disparaît).
+
+Erreurs rencontrées :
+Erreur : `Uncaught ReferenceError: storedName is not defined` pour tester avec "console.log()"
+Résolu en déclarant la constante `storedName` au bon endroit après avoir récupéré le prénom depuis le localStorage.
+
+Console :
+Présence de `prenom` dans localStorage avec la bonne valeur, tout s'affiche correctement.
+
+===========================
+PAGE ARTICLES (articles.html)
+===========================
+
+🔹 Fonctionnalité : Marquage d’un article comme "lu"
+-----------------------------------------------------
+Description :
+Quand on clique sur "Lire la suite", l'article est marqué comme lu. 
+Un indicateur "📘 Article lu" apparaît dans le bloc article et reste visible même après rechargement.
+
+Méthode de test :
+1. Cliquer sur "Lire la suite" d’un article.
+2. Observer l’icône 📘 apparaître.
+3. Recharger la page.
+
+Résultat :
+Fonctionne comme prévu.
+
+Erreurs rencontrées :
+Doublon d’indicateur "lu" affiché deux fois.
+Résolu en vérifiant l’existence préalable de l’élément `.lu-indicator` avant d’en recréer un.
+
+---
+
+🔹 Fonctionnalité : Boutons "Masquer les articles lus" / "Afficher tous les articles"
+--------------------------------------------------------------------------------------
+Description :
+Un bouton permet de cacher tous les articles marqués comme "lu". Un autre les réaffiche.
+
+Méthode de test :
+1. Marquer un article comme lu.
+2. Cliquer sur "Masquer les articles lus".
+3. Vérifier que l’article disparaît.
+4. Cliquer sur "Afficher tous les articles".
+
+Résultat :
+Fonctionne comme prévu.
+
+Pas de difficultés rencontrées pour cette fonctionnalité.
+
+🔹 Fonctionnalité : Filtrer par catégorie (menu déroulant)
+----------------------------------------------------------
+Description :
+Une liste déroulante permet de filtrer les articles par catégorie (création, histoire, accessoires, etc.)
+
+Méthode de test :
+1. Choisir une catégorie dans la liste déroulante.
+2. Observer si seuls les articles correspondants restent visibles.
+
+Résultat :
+Fonctionne comme prévu.
+
+Erreurs rencontrées :
+Problème de structure HTML avec des balises `.article` mal imbriquées, j'avais mis une div "article" en doublon.
+Corrigé en nettoyant le HTML et en m’assurant qu’une seule div `.article` contient toutes les classes de catégorie.
+
+---
+
+🔹 Fonctionnalité : Prévention des injections JS
+-------------------------------------------------
+Description :
+Utilisation de `textContent` au lieu de `innerHTML` pour éviter d’exécuter du code JavaScript non souhaité (sécurité).
+
+Méthode de vérification :
+Vérification manuelle dans les fonctions d’affichage du prénom et des indicateurs.
+
+Résultat :
+Mesures de sécurité appliquées correctement.
+
+===========================
+
+Conclusion :
+Toutes les fonctionnalités ont été testées manuellement dans le navigateur. 
+Les bugs ont été résolus au fur et à mesure, et les résultats sont conformes aux attentes.
+

@@ -1,0 +1,686 @@
+/* RESPONSIVE TABLETTE (1024px) */
+
+@media (max-width: 1024px) {
+
+ /* TITRE + LOGO */   
+  .site-header {
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    gap: 10px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .site-title {
+    font-size: 65px;
+  }
+
+ /* MENU D'ACCUEIL */
+
+   .main-nav {
+    padding: 10px 15px 10px 15px;
+    margin-top: 20px;
+  }
+
+  .nav-inner {
+    padding: 0 15px;
+  }
+
+  .main-nav .nav-btn {
+    font-size: 22px; 
+    padding: 8px 20px; 
+    border-radius: 16px;
+  } 
+
+/* BANNERE A PROPOS */
+
+  .banniere-articles {
+    margin-top: 70px;
+    margin-bottom: 0px;
+    background: url("../../images/banniere_fantasy_motif_1440x300_dark.webp") center/cover no-repeat;
+  }
+
+  .banniere-content-articles h2 {
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 110px;
+  }
+
+ /* PAGE ABOUT */ /* AVATAR */
+
+  .about-section {
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    gap: 20px;
+}
+
+  .avatar-container {
+    width: 400px;
+    height: 400px;
+}
+
+/* ABOUT - TEXTE INTRO */
+
+.about-section {
+  gap: 20px;
+}
+
+  .intro-text {
+    max-width: 50%;
+    padding: 0 0px;
+    text-align: center;
+  }
+
+  .intro-quote {
+    font-size: 30px;
+    line-height: 1.3;
+}
+
+  .police-speciale-intro {
+    font-size: 90px;
+}
+
+  .police-speciale-bonjour {
+    font-size: 35px;
+    line-height: 1;
+}
+
+.police-speciale-intro-quoteend {
+    font-size: 90px;
+    font-weight: 500;
+    margin-left: 450px;
+    line-height: 0.8;
+}
+
+/* TEXTE QUI SUIS-JE ? */
+
+  .about-qui-suis-je {
+    width: 90%;
+    margin: 80px auto 0 auto;
+  }
+
+  .about-qui-suis-je-title {
+    font-size: 48px;
+    line-height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .about-qui-suis-je-description {
+    font-size: 32px;
+    line-height: 44px;
+    margin-bottom: 40px;
+  }
+
+  .about-qui-suis-je-subtext {
+    font-size: 28px;
+    line-height: 38px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+/* TEXTE POURQUOI ? */
+
+  .why-section {
+    max-width: 90%;
+    margin: 80px auto 0 auto;
+  }
+
+  .why-title {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .why-description {
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  .why-list {
+    margin-left: 150px;
+    gap: 20px;
+  }
+
+  .why-item {
+    gap: 8px;
+  }
+
+  .arrow-line {
+    width: 28px;
+    border: 5px solid #DA9845;
+  }
+
+  .why-item p {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+/* TEXTE TROUVER ICI */
+
+  .find-section {
+    max-width: 90%;
+    margin: 80px auto;
+  }
+
+  .find-title {
+    font-size: 48px;
+    line-height: 60px;
+    margin-bottom: 40px;
+  }
+
+  .find-list {
+    gap: 20px;
+    margin-left: 80px;
+  }
+
+  .find-item {
+    gap: 8px;
+  }
+
+  .arrow-line {
+    width: 28px;
+    border: 5px solid #DA9845;
+  }
+
+  .find-item p {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+/* TEXTE DERNIERES PAROLES */
+
+  .last-words-section {
+    padding: 80px 30px;
+  }
+
+  .last-title {
+    font-size: 48px;
+    margin-bottom: 25px;
+  }
+
+  .last-quote-wrapper {
+    gap: 20px;
+    flex-wrap: nowrap;
+    margin: 0 auto 30px auto;
+    max-width: 90%;
+  }
+
+  .last-line {width: 80px;}
+
+  .last-quote {
+    font-size: 30px;
+    line-height: 40px;
+    max-width: 600px;
+  }
+
+  .last-conclusion {
+    font-size: 44px;
+    line-height: 60px;
+    max-width: 95%;
+  }
+
+/* BOUTON BAS DE PAGE */
+
+  .about-button-wrapper {
+    margin-top: 0px;
+  }
+
+  .btn-retour-home {
+    width: 220px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 26px;
+  }
+
+/* FOOTER */
+
+.site-footer {
+  height: 323px;
+  flex-wrap: nowrap;
+  padding: 0;
+}
+
+.footer-left {
+  width: 400px; 
+  height: 323px;
+  position: relative;
+}
+
+.footer-logo {
+  width: 293px; 
+  height: 293px;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.footer-copyright {
+  font-size: 14px;
+  right: 15px;
+  bottom: 5px;
+}
+
+.footer-right {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer-title,
+.footer-mention,
+.footer-credit {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.footer-menu {
+  font-size: 16px;
+  margin-top: -145px;
+  margin-left: 10px;
+}
+
+.footer-menu a {
+  font-size: 16px;
+}
+
+.footer-socials img {
+  width: 50px;
+  height: 50px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin-bottom: 10px;
+  margin-top: 0;
+  margin-left: 240px;
+}
+
+.footer-title {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  padding-left: 200px;
+}
+
+.footer-mention {
+  text-align: right;        
+  margin-right: 30px;    
+  font-size: 14px;         
+  margin-bottom: -2px;
+ }
+}
+
+ /* RESPONSIVE MOBILE (420px) */
+
+@media (max-width: 420px) {
+
+/* HEADER */
+
+  .nav-toggle { display: inline-flex; }
+
+  .site-header { position: relative; }
+
+  .main-nav { display: none; }
+
+  .nav-toggle[aria-expanded="true"] + .main-nav { 
+    display: block; 
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 150px;
+    right: 40px;
+    width: 85vw;
+    max-width: 315px;
+    background: #FFCC8C;
+    border: 4px solid #FFF0DC;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    z-index: 1000;
+  }
+  .nav-inner { padding: 16px; }
+  .nav-list { 
+    flex-direction: column; 
+    gap: 16px; 
+    align-items: center;
+  }
+  .nav-btn {
+    display: block;
+    font-size: 20px; 
+    padding: 8px 20px;
+    border-radius: 20px;
+    background:#FFF0DC;
+    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+  }
+
+  .site-header {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .logo { width: 50px; }
+  .site-title { font-size: 28px; text-align: center; margin: 0; }
+  .titre-desktop { display: none; }
+  .titre-mobile { display: inline-block; }
+
+  /* Cacher la nav classique en mobile */
+  .main-nav { display: none; }
+
+   .banniere-articles {
+  background: url("../../images/banniere_fantasy_motif_1440x300_dark.webp") no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 120px;
+  padding: 0 15px;
+  margin: 10px 0 70px;
+  box-sizing: border-box;
+ }
+
+.banniere-content-articles h2 {
+  font-size: 40px;
+  line-height: 50px;
+  margin: 0;
+  white-space: normal;
+  text-align: center;
+}
+
+/* PAGE ABOUT */ /* AVATAR */
+
+  .about-section {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+
+  .avatar-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  /* ABOUT - TEXTE INTRO */
+
+  .intro-text {
+    max-width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .intro-quote {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .police-speciale-intro {
+    font-size: 60px;
+  }
+
+  .police-speciale-bonjour {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .police-speciale-intro-quoteend {
+    font-size: 60px;
+    margin-left: 300px;
+    line-height: 1.5;
+  }
+
+/* TEXTE QUI SUIS-JE ? */
+
+  .about-qui-suis-je {
+    width: 90%;
+    margin: 0px auto 0 auto;
+  }
+
+  .about-qui-suis-je-title {
+    font-size: 38px;
+    line-height: 48px;
+    margin-bottom: 20px;
+  }
+
+  .about-qui-suis-je-description {
+    font-size: 24px;
+    line-height: 34px;
+    margin-bottom: 30px;
+  }
+
+  .qui-suis-je-line {
+    width: 3px;
+    height: 140px;
+    background-color: #DA9845;
+    transform: rotate(0deg);
+  }
+
+  .about-qui-suis-je-subtext {
+    font-size: 20px;
+    line-height: 26px;
+    padding: 0 10px;
+    flex-shrink: 0;
+  }
+
+/* TEXTE POURQUOI ? */
+
+  .why-section {
+    max-width: 90%;
+    margin: 60px auto 0 auto;
+  }
+
+  .why-title {
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 20px;
+  }
+
+  .why-description {
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 30px;
+  }
+
+  .why-list {
+    gap: 20px;
+    margin-left: 10px;
+  }
+
+  .arrow-line {
+    width: 20px;
+    border: 4px solid #DA9845;
+  }
+
+  .why-item p {
+    font-size: 16px;
+    line-height: 26px;
+    text-align: left;
+  }
+
+/* TEXTE TROUVER ICI */
+
+  .find-section {
+    max-width: 90%;
+    margin: 60px auto;
+    padding: 0 10px;
+  }
+
+  .find-title {
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 30px;
+  }
+
+  .find-list {
+    gap: 20px;
+    margin-left: 0px;
+  }
+
+  .find-item {
+    gap: 8px;
+  }
+
+  .arrow-line {
+    width: 20px;
+    border: 4px solid #DA9845;
+  }
+
+  .find-item p {
+    font-size: 16px;
+    line-height: 26px;
+    text-align: left;
+  }
+
+/* TEXTE DERNIERES PAROLES */
+
+  .last-words-section {
+    padding: 0px 20px;
+  }
+
+  .last-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  .last-quote-wrapper {
+    gap: 16px;
+    flex-wrap: nowrap;
+    margin: 0 auto 20px auto;
+    max-width: 100%;
+  }
+
+  .last-line {
+    width: 60px;
+    border: 2px solid #DA9845;
+  }
+
+  .last-quote {
+    font-size: 18px;
+    line-height: 26px;
+    max-width: 220px;
+  }
+
+  .last-conclusion {
+    font-size: 24px;
+    line-height: 32px;
+    max-width: 90%;
+  }
+
+/* BOUTON BAS DE PAGE */
+
+  .about-button-wrapper {
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+
+  .btn-retour-home {
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+  }
+
+/* FOOTER */
+.site-footer {
+  flex-direction: row;
+  justify-content: space-between;
+  height: auto;
+  align-items: stretch;
+}
+
+.footer-left,
+.footer-right {
+  flex: 1 1 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.footer-menu {
+  order: -1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin-bottom: 130px;
+  margin-left: 1px;
+}
+
+.footer-menu a {
+  font-size: 12px;
+  color: #FFF0DC;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-separator {
+  color: #FFF0DC;
+  font-weight: bold;
+}
+
+.footer-logo {
+  width: 180px;
+  height: auto;
+  margin: 25px auto;
+}
+
+.footer-copyright {
+  font-size: 10px;
+  text-align: center;
+  color: #FFF0DC;
+  margin-left: 15px;
+  margin-bottom: 4px;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.footer-title {
+  font-size: 14px;
+  padding: 0;
+}
+
+.footer-socials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  justify-items: center; 
+  width: 100%;
+  max-width: 150px; 
+  margin: 45px auto;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-socials a img {
+  width: 60px;
+  height: 60px;
+}
+
+.footer-mention {
+  font-size: 12px;
+  color: #FFCC8C;
+  text-align: center;
+  margin: 0;
+}
+
+#backToTop {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+}}

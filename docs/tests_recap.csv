@@ -1,0 +1,17 @@
+Type de test,Résultat,Annexe
+Connexion PDO,✅,D - Test connexion
+Requêtes préparées (3 tests),✅,D - Test requêtes
+Création utilisateur (succès),✅,D - Tests fonctions
+Validation pseudo trop court,✅,D - Tests fonctions
+Validation email invalide,✅,D - Tests fonctions
+Validation mot de passe trop court,✅,D - Tests fonctions
+Détection doublon pseudo,✅,D - Tests fonctions
+Détection doublon email,✅,D - Tests fonctions
+Récupération tous articles,✅,D - Tests fonctions
+Récupération article par ID,✅,D - Tests fonctions
+Filtrage par catégorie,✅,D - Tests fonctions
+Protection injection SQL,✅,D - Test injection
+Hashage bcrypt (5 tests),✅,D - Test hashage
+Contrainte CHECK (note 1-5),✅,D - Tests contraintes
+Contrainte UNIQUE (email),✅,D - Tests contraintes
+Action CASCADE (suppression),✅,D - Tests contraintes

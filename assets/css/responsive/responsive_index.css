@@ -1,0 +1,647 @@
+/* RESPONSIVE TABLETTE (1024px) */
+
+@media (max-width: 1024px) {
+
+ /* TITRE + LOGO */   
+  .site-header {
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    gap: 10px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .site-title {
+    font-size: 65px;
+  }
+
+ /* MENU D'ACCUEIL */
+
+   .main-nav {
+    padding: 10px 15px 10px 15px;
+    margin-top: 20px;
+  }
+
+  .nav-inner {
+    padding: 0 15px;
+  }
+
+  .main-nav .nav-btn {
+    font-size: 22px; 
+    padding: 8px 20px; 
+    border-radius: 16px;
+  } 
+
+  /* Bannière d'accueil */
+   .banniere {
+    height: 450px; 
+    margin-top: 40px;
+  }
+
+  .banniere-content h2 {
+    font-size: 50px; 
+    margin: 10px 25px;
+  }
+
+  .banniere-content p {
+    font-size: 28px; 
+    line-height: 35px;
+    margin-left: 150px; 
+    max-width: 90%;
+    margin-right: 25px;
+  }
+
+  .btn-banniere {
+    bottom: 25px;
+    left: 40px; 
+    font-size: 38px; 
+    padding: 18px 35px;
+    border-radius: 35px;
+  }
+
+  /* INTRO + MINI-BIO */
+
+.intro-bio {
+    padding: 0 30px;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .intro {
+    width: 60%;
+    height: auto;
+    padding: 25px;
+    gap: 10px;
+  }
+
+  .intro h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .intro p {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .intro-button {
+    font-size: 28px;
+    padding: 10px 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 16px;
+  }
+
+  .separator {
+    width: 10px;
+    height: 300px;
+    margin: 0 15px;
+  }
+
+  .mini-bio {
+   width: 330px; 
+   height: 420px;
+   flex-shrink: 0;
+   background-size: cover;
+   background-position: center;
+}
+
+  .mini-bio-header h3 {
+    font-size: 30px;
+  }
+
+  .mini-bio p {
+    font-size: 16px;
+  }
+
+  .bio-button {
+    font-size: 26px;
+    padding: 8px 18px;
+  }
+
+  /* ARTICLES RECENTS */
+
+  .articles-recents {
+  font-size: 35px; 
+  margin-left: 30px; 
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.articles-wrapper {
+  gap: 80px; 
+  padding: 0 30px;
+}
+
+.article {
+  width: 42vw; 
+  max-width: 420px; 
+  height: 420px; 
+  flex-shrink: 0;
+}
+
+.article-text {
+  height: 160px;
+  padding: 10px;
+}
+
+.article-text h3 {
+  font-size: 20px; 
+}
+
+.article-text p {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.article-button {
+  font-size: 26px; 
+  padding: 10px 20px;
+  border-radius: 30px;
+  bottom: 15px;
+  right: 15px;
+}
+
+.article-image {
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* FOOTER */
+
+.site-footer {
+  height: 323px; 
+  flex-wrap: nowrap;
+  padding: 0;
+}
+
+.footer-left {
+  width: 360px; 
+  height: 323px;
+  position: relative;
+}
+
+.footer-logo {
+  width: 293px;
+  height: 293px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.footer-copyright {
+  font-size: 14px;
+  right: 15px;
+  bottom: 5px;
+}
+
+.footer-right {
+  flex: 1;
+  padding: 20px;
+  margin-left: 0;
+}
+
+.footer-title,
+.footer-mention,
+.footer-credit {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.footer-menu {
+  font-size: 16px;
+  margin-top: -145px;
+  margin-left: -15px;
+}
+
+.footer-menu a {
+  font-size: 16px;
+}
+
+.footer-socials img {
+  width: 50px;
+  height: 50px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 10px;
+  margin-top: 0;
+  margin-left: 200px;
+}
+
+.footer-title {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  padding-left: 200px;
+}
+
+.footer-mention {
+  text-align: right;
+  margin-right: 30px; 
+  font-size: 14px; 
+  margin-bottom: -2px;
+ }
+}
+
+/* RESPONSIVE MOBILE (420px) */
+
+@media (max-width: 420px) {
+
+/* HEADER */
+
+  .nav-toggle { display: inline-flex; }
+
+  .site-header { position: relative; }
+
+  .main-nav { display: none; }
+
+  .nav-toggle[aria-expanded="true"] + .main-nav { 
+    display: block; 
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 150px;
+    right: 40px;
+    width: 85vw;
+    max-width: 315px;
+    background: #FFCC8C;
+    border: 4px solid #FFF0DC;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    z-index: 1000;
+  }
+  .nav-inner { padding: 16px; }
+  .nav-list { 
+    flex-direction: column; 
+    gap: 16px; 
+    align-items: center;
+  }
+  .nav-btn {
+    display: block;
+    font-size: 20px; 
+    padding: 8px 20px;
+    border-radius: 20px;
+    background:#FFF0DC;
+    box-shadow: 0 4px 4px rgba(0,0,0,.25);
+  }
+
+  .site-header {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .logo { width: 50px; }
+  .site-title { font-size: 28px; text-align: center; margin: 0; }
+  .titre-desktop { display: none; }
+  .titre-mobile { display: inline-block; }
+
+  /* Cacher la nav classique en mobile */
+  .main-nav { display: none; }
+
+/* BANNIERE D'ACCUEIL */
+
+  .banniere {
+    background-image: url('../../images/jdr_banner_1440x500.webp');
+    max-height: 160px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .banniere-content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .banniere-content h2 {
+    font-size: 25px;
+    flex-wrap: nowrap;
+    line-height: 25px;
+    font-weight: 700;
+    margin: 5px 35px;
+    margin-top: -10px;
+  }
+
+  .banniere-content p {
+    font-size: 14px;
+    color: #FFF0DC;
+    text-align: center;
+    line-height: 20px;
+    margin: 0 20px;
+  }
+
+  .btn-banniere {
+    position: static;
+    display: block;
+    font-size: 18px;
+    padding: 4px 15px 5px;
+    border-radius: 50px;
+    margin: 30px auto 0;
+  }
+
+/* INTRO + BIO */
+
+  .intro-bio {
+    flex-direction: column;
+  }
+
+  .separator {
+    display: none;
+  }
+
+/* INTRO */
+
+.intro {
+  width: 90vw; 
+  max-width: none; 
+  background: url('../../images/cadre_parchemin.webp') no-repeat center/contain;
+  margin: -50px; 
+  margin-left: -10px;
+  gap: 10px;
+  text-align: left;
+}
+
+
+.intro h2 {
+  font-size: 18px;
+  padding: 0;
+  margin-top: -15px;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.intro p {
+  font-size: 13px;
+  line-height: 19px;
+  padding: 0;
+  margin-top: -15px;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.intro-button {
+  align-self: flex-end;
+  font-size: 16px;
+  padding: 6px 18px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+
+/* MINI-BIO mobile */
+
+.mini-bio {
+  width: 100%;
+  max-width: 338px;
+  margin: 30px auto 0;
+  padding: 15px;
+  background: url('../../images/Cadre_mini_bio.png') center/cover no-repeat;
+  align-items: center;
+  height: auto;
+  overflow: visible;
+  margin-bottom: 60px;
+}
+
+.mini-bio::before,
+.mini-bio::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 332px;
+  height: 4px;
+  background-color: #FFCC8C;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mini-bio::before { top: -22px; }
+.mini-bio::after  { bottom: -22px; }
+
+
+
+/* Header : titre + avatar */
+.mini-bio-header {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.mini-bio-header h3 {
+  font-size: 30px;
+  margin: 0;
+  width: 60%;
+}
+
+.avatar {
+  width: 109px;
+  height: 109px;
+  background: url('../../images/avatar.webp') center/cover no-repeat;
+  margin-right: 5px;
+}
+
+/* Texte + bouton */
+.mini-bio p {
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.mini-bio p em {
+  margin-top: 10px;
+}
+
+.bio-button {
+  font-size: 28px;
+  font-weight: 900;
+  padding: 10px 25px;
+  border-radius: 50px;
+  margin-top: auto;
+}
+
+/* ARTICLES RECENTS */
+
+  /* Titre section */
+  .articles-recents {
+    font-size: 28px;
+    margin: 80px 0 10px;
+    text-align: center;
+  }
+
+  /* Conteneur principal des articles */
+  .articles-wrapper {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 15px;
+    align-items: center;
+  }
+
+  /* Chaque article */
+  .article {
+  width: 306px;
+  height: 305px;
+  margin: 0 auto 40px auto;
+  overflow: hidden;
+}
+
+  /* Texte article */
+  .article-text {
+  height: 120px;    
+  padding: 10px 15px;           
+  gap: 5px;              
+}
+
+  .article-text h3 {
+  font-size: 14px;
+  line-height: 24px;
+  margin: 0;
+  text-align: left;
+  margin-top: -7px;
+  margin-left: -5px;
+}
+
+  .article-text p {
+  font-size: 12px;
+  line-height: 18px;
+  text-align: left;
+  margin-top: -5px;
+  margin-left: -5px;
+}
+
+  .article-button {
+  bottom: 10px;
+  right: 15px;
+  font-size: 20px;
+  padding: 6px 20px;
+  }
+
+  /* Indicateur Lu pour les articles */
+.lu-indicator {
+  font-size: 10px;
+  color: #422500;
+  font-family: 'Livvic-Bold';
+  background-color: #FFCC8C;
+  padding: 3px 7px;
+  border-radius: 12px;
+  margin-top: 2px;
+  display: inline-block;
+}
+
+/* FOOTER (unique, mobile – toujours en 2 colonnes) */
+.site-footer {
+  flex-direction: row;          /* on garde 2 colonnes */
+  justify-content: space-between;
+  height: auto;
+  align-items: stretch;   /* étire les deux colonnes en hauteur */
+}
+
+/* Colonne gauche */
+.footer-left,
+.footer-right {
+  flex: 1 1 50%;          /* chaque colonne prend 50% */
+  max-width: 50%;
+  box-sizing: border-box; /* évite les débordements */
+}
+
+/* Colonne gauche (bloc marron foncé) */
+.footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.footer-menu {
+  order: -1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin-bottom: 130px;
+  margin-left: 1px;
+}
+
+.footer-menu a {
+  font-size: 12px;
+  color: #FFF0DC;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-separator {
+  color: #FFF0DC;
+  font-weight: bold;
+}
+
+.footer-logo {
+  width: 180px;
+  height: auto;
+  margin: 25px auto;
+}
+
+.footer-copyright {
+  font-size: 10px;
+  text-align: center;
+  color: #FFF0DC;
+  margin-left: 15px;
+  margin-bottom: 4px;
+}
+
+/* Colonne droite (réseaux sociaux) */
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.footer-title {
+  font-size: 14px;
+  padding: 0;
+}
+
+/* Icônes en grille 2x2 */
+.footer-socials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  justify-items: center; /* centre chaque icône dans sa cellule */
+  width: 100%;           /* force la grille à occuper toute la largeur */
+  max-width: 150px;      /* optionnel : limite pour éviter que ça s'étire trop */
+  margin: 45px auto;     /* centre la grille elle-même */
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-socials a img {
+  width: 60px;
+  height: 60px;
+}
+
+.footer-mention {
+  font-size: 12px;
+  color: #FFCC8C;
+  text-align: center;
+  margin: 0;
+}
+
+
+#backToTop {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+}
+}

@@ -1,0 +1,21 @@
+# Fichiers sensibles
+database.php
+config.php
+.env
+
+# Vendor
+vendor/
+
+# Node modules
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+db_data/
