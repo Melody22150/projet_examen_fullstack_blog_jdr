@@ -87,7 +87,7 @@ function creerUtilisateur(PDO $pdo, string $pseudo, string $email, string $mot_d
     }
     
     // === VÉRIFICATION DOUBLON PSEUDO ===
-    $sql = "SELECT COUNT(*) FROM Utilisateur WHERE pseudo = :pseudo";
+    $sql = "SELECT COUNT(*) FROM utilisateur WHERE pseudo = :pseudo";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':pseudo' => $pseudo]);
     
@@ -96,7 +96,7 @@ function creerUtilisateur(PDO $pdo, string $pseudo, string $email, string $mot_d
     }
     
     // === VÉRIFICATION DOUBLON EMAIL ===
-    $sql = "SELECT COUNT(*) FROM Utilisateur WHERE email = :email";
+    $sql = "SELECT COUNT(*) FROM utilisateur WHERE email = :email";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':email' => $email]);
     
@@ -108,7 +108,7 @@ function creerUtilisateur(PDO $pdo, string $pseudo, string $email, string $mot_d
     $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_BCRYPT, ['cost' => 12]);
     
     // === INSERTION EN BASE DE DONNÉES ===
-    $sql = "INSERT INTO Utilisateur (pseudo, email, mot_de_passe) 
+    $sql = "INSERT INTO utilisateur (pseudo, email, mot_de_passe) 
             VALUES (:pseudo, :email, :mot_de_passe)";
     
     $stmt = $pdo->prepare($sql);
@@ -274,7 +274,7 @@ function modifierUtilisateur(PDO $pdo, int $auteur_id, string $pseudo, string $e
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':id' => $auteur_id]);
     if ($stmt->fetchColumn() == 0) {
-        throw new Exception("Utilisateur introuvable.");
+        throw new Exception("utilisateur introuvable.");
     }
     
     // Validation
@@ -331,7 +331,7 @@ function supprimerUtilisateur(PDO $pdo, int $auteur_id): bool {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':id' => $auteur_id]);
     if ($stmt->fetchColumn() == 0) {
-        throw new Exception("Utilisateur introuvable.");
+        throw new Exception("utilisateur introuvable.");
     }
     
     // Suppression (CASCADE supprime articles et commentaires)

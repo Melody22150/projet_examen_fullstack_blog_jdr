@@ -157,6 +157,56 @@
 .article-filter-buttons {
   margin-left: -390px;
 }
+
+/* LISTE DES ARTICLES (CRUD) - TABLETTE */
+
+.page-title {
+  font-size: 45px;
+  margin: 30px 0 20px 0;
+}
+
+.btn-create-article {
+  font-size: 22px;
+  padding: 10px 20px;
+}
+
+.articles-count {
+  font-size: 20px;
+}
+
+.article-liste {
+  margin: 20px 15px;
+  padding: 20px;
+}
+
+.article-liste-titre {
+  font-size: 28px;
+}
+
+.article-liste-extrait {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.categorie-badge {
+  font-size: 18px;
+  padding: 6px 16px;
+}
+
+.article-liste-meta {
+  font-size: 18px;
+}
+
+.btn-action {
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+.error-message {
+  font-size: 18px;
+  padding: 15px;
+  margin: 20px 15px;
+}
 }
 
 /* RESPONSIVE MOBILE (420px) */
@@ -420,5 +470,72 @@
 
 #categorie-select {
   font-size: 15px;
+}
+/* LISTE DES ARTICLES (CRUD) - MOBILE */
+
+.page-title {
+  font-size: 28px;
+  margin: 20px 10px;
+  line-height: 35px;
+}
+
+.create-article-container {
+  margin: 15px 0;
+}
+
+.btn-create-article {
+  font-size: 18px;
+  padding: 8px 16px;
+}
+
+.articles-count {
+  font-size: 16px;
+  margin: 15px 10px;
+}
+
+.article-liste {
+  margin: 20px 10px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 3px solid #FFCC8C;
+}
+
+.article-liste-titre {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.article-liste-extrait {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.categorie-badge {
+  font-size: 14px;
+  padding: 5px 12px;
+}
+
+.article-liste-meta {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.article-liste-actions {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-action {
+  font-size: 15px;
+  padding: 8px 15px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error-message {
+  font-size: 16px;
+  padding: 15px;
+  margin: 20px 10px;
 }
 }

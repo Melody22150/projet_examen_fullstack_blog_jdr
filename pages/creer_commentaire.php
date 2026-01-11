@@ -20,7 +20,7 @@ try {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contenu = trim($_POST['contenu_commentaire'] ?? '');
     $note = isset($_POST['note']) ? (int)$_POST['note'] : null;
-    $auteur_id = 1; // Utilisateur par défaut
+    $auteur_id = 1; // utilisateur par défaut
     $article_id = isset($_POST['article_id']) ? (int)$_POST['article_id'] : 0;
 
     try {
@@ -52,32 +52,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Ajouter un commentaire</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f4e8d8; }
-        .container { max-width: 800px; margin: 40px auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
-        h1 { color:#8B4513; text-align:center; }
-        .message { padding:12px; border-radius:6px; margin-bottom:16px; text-align:center; }
-        .message.success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .message.error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        .form-group { margin-bottom:16px; }
-        label { display:block; font-weight:bold; color:#8B4513; margin-bottom:8px; }
-        input, select, textarea { width:100%; padding:10px; border:2px solid #D2691E; border-radius:6px; }
-        textarea { min-height:140px; }
-        .actions { display:flex; gap:12px; justify-content:center; margin-top:20px; }
-        button, a.btn { padding:10px 18px; border:none; border-radius:6px; cursor:pointer; text-decoration:none; }
-        button { background:#8B4513; color:#fff; }
-        button:hover { background:#6b3410; }
-        a.btn { background:#777; color:#fff; }
-        a.btn:hover { background:#555; }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>💬 Ajouter un commentaire</h1>
+    
+    <div class="nav">
+        <a href="../index.php">Accueil</a>
+        <a href="liste_articles.php">Articles</a>
+        <a href="liste_utilisateurs.php">Utilisateurs</a>
+        <a href="liste_commentaires.php">Commentaires</a>
+    </div>
 
     <?php if ($message): ?>
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
+        <?php if ($message_type === 'success'): ?>
+            <script>
+                setTimeout(function() {
+                    window.location.href = 'liste_articles.php';
+                }, 2000); // Redirection après 2 secondes
+            </script>
+        <?php endif; ?>
     <?php endif; ?>
 
     <form method="post">
@@ -97,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <select id="note" name="note" required>
                 <option value="">-- Sélectionner --</option>
                 <?php for ($i=1; $i<=5; $i++): ?>
-                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <option value="<?php echo $i; ?>"><?php echo str_repeat('⭐', $i) . ' (' . $i . '/5)'; ?></option>
                 <?php endfor; ?>
             </select>
         </div>
@@ -107,8 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="actions">
             <button type="submit">Ajouter</button>
-            <a class="btn" href="liste_commentaires.php">Voir les commentaires</a>
-            <a class="btn" href="liste_articles.php">Retour aux articles</a>
+            <a class="btn-cancel" href="liste_articles.php">❌ Annuler</a>
         </div>
     </form>
 </div>

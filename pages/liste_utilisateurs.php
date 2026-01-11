@@ -22,25 +22,24 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Liste des utilisateurs</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f4e8d8; }
-        .container { max-width: 900px; margin: 40px auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
-        h1 { color:#8B4513; }
-        .message { padding:12px; border-radius:6px; margin-bottom:16px; }
-        .message.success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .message.error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        table { width:100%; border-collapse: collapse; }
-        th, td { border:1px solid #ddd; padding:10px; }
-        th { background:#8B4513; color:#fff; }
-        .actions a { margin-right:10px; font-weight:bold; text-decoration:none; }
-        .edit { color:#8B4513; }
-        .del { color:#c33; }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>👥 Utilisateurs</h1>
+    
+    <div class="nav">
+        <a href="../index.php">Accueil</a>
+        <a href="liste_articles.php">Articles</a>
+        <a href="liste_utilisateurs.php">Utilisateurs</a>
+        <a href="liste_commentaires.php">Commentaires</a>
+    </div>
+    
+    <div class="create-article-container">
+        <a href="creer_utilisateur.php" class="btn-create-article">➕ Créer un utilisateur</a>
+    </div>
+    
     <?php if ($message): ?>
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
     <?php endif; ?>

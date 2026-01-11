@@ -44,29 +44,19 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Supprimer un commentaire</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f4e8d8; }
-        .container { max-width: 700px; margin: 40px auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
-        h1 { color:#c33; text-align:center; }
-        .warning { background:#fff3cd; color:#856404; border:2px solid #ffc107; padding:12px; border-radius:6px; margin-bottom:16px; }
-        .message { padding:12px; border-radius:6px; margin-bottom:16px; text-align:center; }
-        .message.success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .message.error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        .info { background:#f8f9fa; border-left:4px solid #8B4513; padding:12px; margin-bottom:16px; }
-        .form-group { text-align:center; margin: 16px 0; }
-        .actions { display:flex; gap:12px; justify-content:center; margin-top:20px; }
-        button, a.btn { padding:10px 18px; border:none; border-radius:6px; cursor:pointer; text-decoration:none; }
-        button { background:#c33; color:#fff; }
-        button:hover { background:#a22; }
-        a.btn { background:#777; color:#fff; }
-        a.btn:hover { background:#555; }
-        label { font-weight:bold; }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>🗑️ Supprimer un commentaire</h1>
+
+    <div class="nav">
+        <a href="../index.php">Accueil</a>
+        <a href="liste_articles.php">Articles</a>
+        <a href="liste_utilisateurs.php">Utilisateurs</a>
+        <a href="liste_commentaires.php">Commentaires</a>
+    </div>
 
     <div class="warning">⚠️ Cette action est définitive.</div>
 

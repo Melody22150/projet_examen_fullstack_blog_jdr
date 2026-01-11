@@ -336,57 +336,18 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Tests - CRUD Blog JDR</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background: #f4e8d8; color: #333; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-        h1 { color: #8B4513; text-align: center; margin-bottom: 30px; }
-        .test-section { 
-            background: #fff; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,.1);
-            border-left: 5px solid #8B4513;
-        }
-        .test-header { 
-            padding: 15px 20px; 
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .test-header h2 { color: #8B4513; font-size: 1.2em; }
-        .test-status { font-weight: bold; padding: 5px 12px; border-radius: 4px; }
-        .status-success { background: #d4edda; color: #155724; }
-        .status-error { background: #f8d7da; color: #721c24; }
-        .status-warning { background: #fff3cd; color: #856404; }
-        .test-body { padding: 15px 20px; }
-        .test-body p { line-height: 1.8; margin-bottom: 8px; font-size: 0.95em; }
-        .nav { text-align: center; margin-bottom: 20px; }
-        .nav a { 
-            display: inline-block;
-            margin: 5px;
-            padding: 8px 14px; 
-            background: #8B4513;
-            color: #fff; 
-            text-decoration: none; 
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .nav a:hover { background: #6b3410; }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>🧪 Tests du CRUD - Blog JDR</h1>
         
         <div class="nav">
-            <a href="../index.php">🏠 Accueil</a>
-            <a href="liste_articles.php">📚 Articles</a>
-            <a href="liste_utilisateurs.php">👥 Utilisateurs</a>
-            <a href="liste_commentaires.php">💬 Commentaires</a>
+            <a href="../index.php">Accueil</a>
+            <a href="liste_articles.php">Articles</a>
+            <a href="liste_utilisateurs.php">Utilisateurs</a>
+            <a href="liste_commentaires.php">Commentaires</a>
         </div>
 
         <?php foreach ($test_results as $test_key => $test): ?>

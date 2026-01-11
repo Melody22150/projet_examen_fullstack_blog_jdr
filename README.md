@@ -76,7 +76,7 @@ cd blog_jdr
 
 Ce script va :
 - ✅ Créer la base de données `blog_jdr`
-- ✅ Créer les 3 tables (`Utilisateur`, `Article`, `Commentaire`)
+- ✅ Créer les 3 tables (`utilisateur`, `Article`, `Commentaire`)
 - ✅ Insérer des données de test
 
 **Vérification :**

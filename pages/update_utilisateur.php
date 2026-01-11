@@ -14,7 +14,7 @@ try {
     $stmt = $pdo->prepare('SELECT * FROM utilisateur WHERE auteur_id = :id');
     $stmt->execute([':id' => $auteur_id]);
     $user = $stmt->fetch();
-    if (!$user) { die('❌ Utilisateur introuvable'); }
+    if (!$user) { die('❌ utilisateur introuvable'); }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pseudo = trim($_POST['pseudo'] ?? '');
@@ -46,7 +46,7 @@ try {
             ]);
 
             if ($up) {
-                $message = '✅ Utilisateur modifié avec succès';
+                $message = '✅ utilisateur modifié avec succès';
                 $message_type = 'success';
                 $user['pseudo'] = $pseudo;
                 $user['email'] = $email;
@@ -68,28 +68,19 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Modifier un utilisateur</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f4e8d8; }
-        .container { max-width: 700px; margin: 40px auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
-        h1 { color:#8B4513; text-align:center; }
-        .message { padding:12px; border-radius:6px; margin-bottom:16px; text-align:center; }
-        .message.success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .message.error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        .form-group { margin-bottom:16px; }
-        label { display:block; font-weight:bold; color:#8B4513; margin-bottom:8px; }
-        input { width:100%; padding:10px; border:2px solid #D2691E; border-radius:6px; }
-        .actions { display:flex; gap:12px; justify-content:center; margin-top:20px; }
-        button, a.btn { padding:10px 18px; border:none; border-radius:6px; cursor:pointer; text-decoration:none; }
-        button { background:#8B4513; color:#fff; }
-        button:hover { background:#6b3410; }
-        a.btn { background:#777; color:#fff; }
-        a.btn:hover { background:#555; }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>✏️ Modifier un utilisateur</h1>
+
+    <div class="nav">
+        <a href="../index.php">Accueil</a>
+        <a href="liste_articles.php">Articles</a>
+        <a href="liste_utilisateurs.php">Utilisateurs</a>
+        <a href="liste_commentaires.php">Commentaires</a>
+    </div>
 
     <?php if ($message): ?>
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>

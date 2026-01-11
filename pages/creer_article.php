@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contenu = trim($_POST['contenu'] ?? '');
     $extrait = trim($_POST['extrait'] ?? '');
     $categorie = trim($_POST['categorie'] ?? '');
-    $image_url = trim($_POST['image_url'] ?? '');
     $auteur_id = intval($_POST['auteur_id'] ?? 0);
+    $image_url = null;
 
     try {
         if ($titre === '' || strlen($titre) < 3 || strlen($titre) > 200) {
@@ -35,11 +35,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!in_array($categorie, $categories, true)) {
             throw new Exception('Catégorie invalide.');
         }
-        if ($image_url !== '' && !filter_var($image_url, FILTER_VALIDATE_URL)) {
-            throw new Exception("L'URL de l'image n'est pas valide.");
-        }
         if ($auteur_id <= 0) {
             throw new Exception("Veuillez sélectionner un auteur.");
+        }
+        
+        // Gestion de l'upload d'image
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            $max_size = 5 * 1024 * 1024; // 5 MB
+            
+            if (!in_array($_FILES['image']['type'], $allowed_types)) {
+                throw new Exception('Format d\'image non autorisé. Utilisez JPG, PNG, GIF ou WebP.');
+            }
+            
+            if ($_FILES['image']['size'] > $max_size) {
+                throw new Exception('L\'image est trop volumineuse (max 5 MB).');
+            }
+            
+            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $filename = uniqid('article_', true) . '.' . $extension;
+            $upload_dir = __DIR__ . '/../assets/images/';
+            
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
+            }
+            
+            $upload_path = $upload_dir . $filename;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                $image_url = '../assets/images/' . $filename;
+            } else {
+                throw new Exception('Erreur lors de l\'upload de l\'image.');
+            }
         }
 
         $sql = "INSERT INTO article (titre, contenu, extrait, categorie, image_url, auteur_id) 
@@ -71,36 +98,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Créer un article</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f4e8d8; }
-        .container { max-width: 800px; margin: 40px auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.08); }
-        h1 { color:#8B4513; text-align:center; }
-        .message { padding:12px; border-radius:6px; margin-bottom:16px; text-align:center; }
-        .message.success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .message.error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        .form-group { margin-bottom:16px; }
-        label { display:block; font-weight:bold; color:#8B4513; margin-bottom:8px; }
-        input[type=text], input[type=url], select, textarea { width:100%; padding:10px; border:2px solid #D2691E; border-radius:6px; }
-        textarea { min-height:180px; resize:vertical; }
-        .row { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-        .actions { display:flex; gap:12px; justify-content:center; margin-top:20px; }
-        button, a.btn { padding:10px 18px; border:none; border-radius:6px; cursor:pointer; text-decoration:none; }
-        button { background:#8B4513; color:#fff; }
-        button:hover { background:#6b3410; }
-        a.btn { background:#777; color:#fff; }
-        a.btn:hover { background:#555; }
-    </style>
 </head>
 <body>
 <div class="container">
     <h1>📝 Créer un article</h1>
 
+    <div class="nav">
+        <a href="../index.php">Accueil</a>
+        <a href="liste_articles.php">Articles</a>
+        <a href="liste_utilisateurs.php">Utilisateurs</a>
+        <a href="liste_commentaires.php">Commentaires</a>
+    </div>
+
     <?php if ($message): ?>
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
     <?php endif; ?>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="titre">Titre *</label>
             <input type="text" id="titre" name="titre" maxlength="200" required>
@@ -116,8 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
             <div class="form-group">
-                <label for="image_url">URL image</label>
-                <input type="url" id="image_url" name="image_url" placeholder="https://...">
+                <label for="image">Image (JPG, PNG, GIF, WebP - Max 5 MB)</label>
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
             </div>
         </div>
         <div class="form-group">
@@ -139,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="actions">
             <button type="submit">Créer l'article</button>
-            <a class="btn" href="liste_articles.php">Retour à la liste</a>
+            <a class="btn-cancel" href="liste_articles.php">❌ Annuler</a>
         </div>
     </form>
 </div>

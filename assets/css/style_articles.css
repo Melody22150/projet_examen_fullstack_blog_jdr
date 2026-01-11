@@ -626,3 +626,144 @@ box-shadow: 0 6px 10px #FFF0DC, 0 6px 10px rgba(0, 0, 0, 0.35);
   color: #FFCC8C;
   transform: translateY(-5px);
 }
+
+/* PAGE LISTE DES ARTICLES (CRUD) */
+
+.page-title {
+  font-family: 'Livvic-Black';
+  font-size: 60px;
+  color: #FFCC8C;
+  text-align: center;
+  margin: 40px 0 30px 0;
+}
+
+.create-article-container {
+  margin: 15px 0 25px;
+  text-align: center;
+}
+
+.btn-create-article {
+  display: inline-block;
+  background: #FFCC8C;
+  color: #653800;
+  padding: 12px 25px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-family: 'LondrinaSolid-Regular';
+  font-weight: 900;
+  font-size: 28px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.btn-create-article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+.articles-count {
+  font-family: 'Livvic-Bold';
+  font-size: 24px;
+  color: #FFF0DC;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.article-liste {
+  max-width: 1200px;
+  margin: 30px auto;
+  background-color: #FFF0DC;
+  border: 4px solid #FFCC8C;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.article-liste-titre {
+  font-family: 'Livvic-BlackItalic';
+  font-size: 35px;
+  color: #653800;
+  margin: 0 0 15px 0;
+}
+
+.article-liste-extrait {
+  font-family: 'Livvic-Regular';
+  font-size: 22px;
+  line-height: 32px;
+  color: #653800;
+  margin: 10px 0;
+}
+
+.categorie-badge {
+  display: inline-block;
+  background: #653800;
+  color: #FFCC8C;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-family: 'Livvic-Bold';
+  font-size: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.article-liste-meta {
+  font-family: 'Livvic-Medium';
+  font-size: 20px;
+  color: #653800;
+  margin: 15px 0;
+}
+
+.article-liste-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-family: 'Livvic-Bold';
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-modifier {
+  background: #FFCC8C;
+  color: #653800;
+}
+
+.btn-supprimer {
+  background: #cc3333;
+  color: #FFF0DC;
+}
+
+.btn-commenter {
+  background: #228B22;
+  color: #FFF0DC;
+}
+
+.btn-voir {
+  background: #422500;
+  color: #FFCC8C;
+}
+
+.btn-action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.35);
+}
+
+.error-message {
+  font-family: 'Livvic-Bold';
+  font-size: 22px;
+  color: #cc3333;
+  text-align: center;
+  background: #FFF0DC;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid #cc3333;
+  margin: 30px auto;
+  max-width: 800px;
+}
