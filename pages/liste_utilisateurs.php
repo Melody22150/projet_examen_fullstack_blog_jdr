@@ -65,8 +65,8 @@ try {
                 <td><?php echo htmlspecialchars($u['email']); ?></td>
                 <td><?php echo htmlspecialchars($u['date_inscription']); ?></td>
                 <td class="actions">
-                    <a class="edit" href="formulaire_update_utilisateur.php?id=<?php echo (int)$u['auteur_id']; ?>">✏️ Modifier</a>
-                    <a class="del" href="formulaire_delete_utilisateur.php?id=<?php echo (int)$u['auteur_id']; ?>">🗑️ Supprimer</a>
+                    <a class="edit" href="update_utilisateur.php?id=<?php echo (int)$u['auteur_id']; ?>">✏️ Modifier</a>
+                    <a class="del" href="delete_utilisateur.php?id=<?php echo (int)$u['auteur_id']; ?>">🗑️ Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>

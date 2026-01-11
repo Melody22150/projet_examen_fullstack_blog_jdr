@@ -288,6 +288,7 @@ try {
 
 // ========================================
 // TEST 8 : UTILISATEURS
+// ========================================
 $test_results['utilisateurs'] = ['titre' => 'Gestion des utilisateurs', 'resultat' => 'success', 'details' => []];
 
 try {

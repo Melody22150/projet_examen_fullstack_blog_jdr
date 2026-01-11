@@ -22,7 +22,7 @@ error_reporting(E_ALL);
 <body>
     <h1>Les Chroniques du JDR - Articles</h1>
     <div style="margin: 15px 0 25px;">
-        <a href="formulaire_creer_article.php" style="background: #8B4513; color: #fff; padding: 10px 14px; border-radius: 6px; text-decoration: none; font-weight: bold;">➕ Créer un article</a>
+        <a href="creer_article.php" style="background: #8B4513; color: #fff; padding: 10px 14px; border-radius: 6px; text-decoration: none; font-weight: bold;">➕ Créer un article</a>
     </div>
     
     <?php
@@ -57,9 +57,9 @@ error_reporting(E_ALL);
             echo '<p><span class="categorie">' . htmlspecialchars($article['categorie']) . '</span></p>';
             echo '<p class="meta">Par <strong>' . htmlspecialchars($article['auteur']) . '</strong> - ' . date('d/m/Y', strtotime($article['date_publication'])) . ' — 💬 ' . (int)$article['nb_commentaires'] . ' commentaire(s)</p>';
             echo '<p style="margin-top: 10px;">';
-            echo '<a href="formulaire_update_article.php?id=' . $article['article_id'] . '" style="margin-right: 10px; color: #8B4513; text-decoration: none; font-weight: bold;">✏️ Modifier</a>';
-            echo '<a href="formulaire_delete_article.php?id=' . $article['article_id'] . '" style="margin-right: 10px; color: #c33; text-decoration: none; font-weight: bold;">🗑️ Supprimer</a>';
-            echo '<a href="formulaire_creer_commentaire.php?article_id=' . $article['article_id'] . '" style="margin-right: 10px; color: #006400; text-decoration: none; font-weight: bold;">➕ Commenter</a>';
+            echo '<a href="update_article.php?id=' . $article['article_id'] . '" style="margin-right: 10px; color: #8B4513; text-decoration: none; font-weight: bold;">✏️ Modifier</a>';
+            echo '<a href="delete_article.php?id=' . $article['article_id'] . '" style="margin-right: 10px; color: #c33; text-decoration: none; font-weight: bold;">🗑️ Supprimer</a>';
+            echo '<a href="creer_commentaire.php?article_id=' . $article['article_id'] . '" style="margin-right: 10px; color: #006400; text-decoration: none; font-weight: bold;">➕ Commenter</a>';
             echo '<a href="liste_commentaires.php?article_id=' . $article['article_id'] . '" style="color: #333; text-decoration: none; font-weight: bold;">👁️ Voir commentaires</a>';
             echo '</p>';
             echo '</div>';

@@ -53,7 +53,7 @@ try {
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
     <?php endif; ?>
 
-    <p><a href="formulaire_creer_commentaire.php<?php echo $article_id>0 ? ('?article_id='.$article_id) : '' ; ?>" style="background:#8B4513;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;">➕ Ajouter un commentaire</a>
+    <p><a href="creer_commentaire.php<?php echo $article_id>0 ? ('?article_id='.$article_id) : '' ; ?>" style="background:#8B4513;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;">➕ Ajouter un commentaire</a>
        <a href="liste_articles.php" style="margin-left:10px;">↩️ Retour aux articles</a></p>
 
     <p><strong><?php echo count($comments); ?></strong> commentaire(s) trouvé(s)</p>
@@ -64,7 +64,7 @@ try {
             <p><strong>Auteur:</strong> <?php echo htmlspecialchars($c['pseudo']); ?> — <span class="meta">Note: <?php echo (int)$c['note']; ?>/5, le <?php echo htmlspecialchars($c['date_commentaire']); ?></span></p>
             <p><?php echo nl2br(htmlspecialchars($c['contenu_commentaire'])); ?></p>
             <p class="actions">
-                <a class="del" href="formulaire_delete_commentaire.php?id=<?php echo (int)$c['commentaire_id']; ?>">🗑️ Supprimer</a>
+                <a class="del" href="delete_commentaire.php?id=<?php echo (int)$c['commentaire_id']; ?>">🗑️ Supprimer</a>
             </p>
         </div>
     <?php endforeach; ?>
