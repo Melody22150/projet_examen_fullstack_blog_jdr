@@ -63,6 +63,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #653800;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -71,17 +72,21 @@ body {
   flex-direction: column;
   align-items: center;
   padding-top: 54px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 0;
+  padding-right: 0;
   max-width: 1350px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .header-top {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  padding: 0 30px;
+  gap: 30px;
+  box-sizing: border-box;
 }
 
 /* LOGO */
@@ -99,22 +104,27 @@ body {
   color: #FFCC8C;
   font-family: 'Nova Cut';
   flex: 1;
+  white-space: nowrap;
 }
 
 /* MENU D'ACCUEIL */
 .main-nav {
-  width: 100%;
+  width: 100vw;
   background-color: #FFCC8C;
   border-width: 4px 0px;
   border-style: solid;
   border-color: #FFF0DC;
-  padding: 10px 85px 10px 85px;
+  padding: 10px 0;
   margin-top: 40px;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  box-sizing: border-box;
 }
 .nav-inner {
   max-width: 1350px;
   margin: 0 auto;
   padding: 0 30px;
+  box-sizing: border-box;
 }
 
 .nav-list {
