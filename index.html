@@ -1,38 +1,95 @@
+<!--
+  =====================================
+  PAGE D'ACCUEIL - LES CHRONIQUES DU JDR
+  =====================================
+  Description : Page d'accueil du blog présentant l'univers du JDR
+  Auteur : Mélody
+  Date : Janvier 2026
+  Fonctionnalités :
+  - Message de bienvenue personnalisé avec localStorage
+  - Navigation responsive avec menu burger
+  - Affichage des articles récents
+  - Sections intro et biographie de l'auteur
+-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- ===== MÉTADONNÉES DU DOCUMENT ===== -->
+  
+  <!-- UTF-8 : Encodage universel supportant tous les caractères (accents, emojis, etc.) -->
   <meta charset="UTF-8">
+  
+  <!-- VIEWPORT : Configuration du responsive design
+       - width=device-width : La largeur s'adapte à l'appareil
+       - initial-scale=1.0 : Zoom par défaut à 100% (évite le zoom automatique sur mobile) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>Accueil | Les Chroniques du JDR</title>
+  
+  <!-- ===== FEUILLES DE STYLE CSS ===== -->
+  <!-- Styles principaux chargés en premier -->
   <link rel="stylesheet" href="./assets/css/style_index.css">
+  <!-- Styles responsive (media queries) pour tablettes et mobiles -->
   <link rel="stylesheet" href="./assets/css/responsive/responsive_index.css">
+  
+  <!-- ===== SCRIPT JAVASCRIPT ===== -->
+  <!-- DEFER : Le script est téléchargé en parallèle du HTML mais n'est exécuté
+       qu'APRÈS le parsing complet du DOM. Cela améliore les performances et garantit
+       que tous les éléments HTML sont disponibles avant l'exécution du JS. -->
   <script src="./assets/js/script_index.js" defer></script>
 </head>
 <body>
 
-<!-- HEADER -->
-
+<!-- ========================== -->
+<!-- HEADER - En-tête de la page -->
+<!-- ========================== -->
+<!-- HEADER : Balise HTML5 sémantique pour l'en-tête du site.
+     Contient généralement logo, titre et navigation principale.
+     Facilite la navigation pour les lecteurs d'écran et améliore le SEO. -->
 <header class="site-header">
+  <!-- En-tête avec logo et titre principal -->
   <div class="header-top">
+    <!-- Logo gauche -->
     <img src="./assets/images/Logo.png" alt="Logo gauche" class="logo">
     
+    <!-- Titre principal du site -->
     <h1 class="site-title">
       LES CHRONIQUES DU JDR
     </h1>
     
+    <!-- Logo droite (symétrie) -->
     <img src="./assets/images/Logo.png" alt="Logo droite" class="logo">
   </div>
 
+  <!-- ===== BOUTON MENU BURGER (Mobile) ===== -->
+  <!-- ARIA-CONTROLS : Indique quel élément (id="main-nav") est contrôlé par ce bouton.
+       Permet aux lecteurs d'écran de faire le lien entre le bouton et le menu.
+       
+       ARIA-EXPANDED : État du menu (true=ouvert, false=fermé).
+       Modifié dynamiquement par JavaScript pour indiquer l'état aux technologies d'assistance.
+       Important pour l'accessibilité des utilisateurs malvoyants. -->
   <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false">
+    
+    <!-- SR-ONLY (Screen Reader Only) : Texte visible uniquement pour les lecteurs d'écran.
+         Classe CSS qui cache visuellement le texte (position: absolute, clip-path)
+         mais le garde accessible aux technologies d'assistance. -->
     <span class="sr-only">Ouvrir le menu</span>
+    
+    <!-- Trois barres du menu hamburger (icône visuelle) -->
     <span class="bar"></span><span class="bar"></span><span class="bar"></span>
   </button>
 
+ <!-- ===== NAVIGATION PRINCIPALE ===== -->
+ <!-- NAV : Balise HTML5 sémantique indiquant un bloc de navigation.
+      Améliore l'accessibilité et le SEO en structurant clairement le contenu.
+      L'ID "main-nav" permet au bouton burger de cibler cette navigation. -->
  <nav id="main-nav" class="main-nav">
     <div class="nav-inner">
+      <!-- UL/LI : Structure de liste sémantique pour les liens de navigation.
+           Recommandation W3C pour l'accessibilité des menus. -->
       <ul class="nav-list">
         <li><a href="index.html" class="nav-btn">Accueil</a></li>
-        <li><a href="#" class="nav-btn">Qu’est-ce que le JDR ?</a></li>
+        <li><a href="#" class="nav-btn">Qu'est-ce que le JDR ?</a></li>
         <li><a href="#" class="nav-btn">Univers</a></li>
         <li><a href="#" class="nav-btn">Conseils</a></li>
         <li><a href="#" class="nav-btn">Contact</a></li>
@@ -41,8 +98,13 @@
   </nav>
 </header>
 
-  <!-- MESSAGE DE BIENVENUE -->
+<!-- ======================================== -->
+<!-- MESSAGE DE BIENVENUE PERSONNALISÉ -->
+<!-- ======================================== -->
+<!-- Popup et bannière contrôlés par script_index.js -->
+<!-- Utilise localStorage pour mémoriser le prénom de l'utilisateur -->
 
+<!-- Popup pour demander le prénom (affiché uniquement si pas encore enregistré) -->
 <div id="welcome-popup" class="popup hidden">
   <div class="popup-content">
     <label for="username">Entrez votre prénom :</label>
@@ -51,53 +113,83 @@
   </div>
 </div>
 
+<!-- Bannière de bienvenue avec le message personnalisé -->
 <div id="welcome-message" class="welcome-banner hidden">
   <p id="personalized-message"></p>
 </div>
 
-<!-- SECTION BANNIERE -->
+<!-- ============================= -->
+<!-- SECTION BANNIERE - Hero section -->
+<!-- ============================= -->
+<!-- SECTION : Balise HTML5 sémantique pour regrouper du contenu thématique.
+     Chaque section devrait idéalement avoir un titre (h2, h3, etc.).
+     Améliore la structure documentaire et l'accessibilité.
+     Une page contient généralement plusieurs sections distinctes. -->
 <section class="banniere">
   <div class="banniere-content">
-    <h2>Plongez dans l’univers du JDR</h2>
+    <h2>Plongez dans l'univers du JDR</h2>
     <p>Conseils, découvertes, aventures : le guide du rôliste débutant ou aguerri.</p>
+    <!-- Bouton redirigeant vers la page des articles -->
     <a href="./pages/articles.html" class="btn-banniere">Explorez les chroniques</a>
   </div>
 </section>
 
+<!-- ============================================ -->
+<!-- SECTION INTRO + BIO - Présentation et biographie -->
+<!-- ============================================ -->
 <section class="intro-bio" id="intro-bio">
-  <!-- INTRO -->
+  <!-- Bloc d'introduction au JDR -->
   <div class="intro">
     <h2>Découvrir le JDR</h2>
     <p>
       "Le Jeu de Rôle, ou JDR, est une activité de narration partagée, où les joueurs incarnent des personnages dans un monde imaginaire..."
     </p>
-    <a href="#" class="intro-button">Qu’est-ce que le JDR ?</a>
+    <!-- Lien vers page explicative (à venir) -->
+    <a href="#" class="intro-button">Qu'est-ce que le JDR ?</a>
   </div>
 
+  <!-- Séparateur visuel décoratif -->
+  <!-- ARIA-HIDDEN="true" : Cache cet élément des lecteurs d'écran car il est purement décoratif
+       (pas de contenu informatif). Évite la pollution sonore pour les utilisateurs malvoyants. -->
   <div class="separator" aria-hidden="true"></div>
 
-  <!-- MINI BIO -->
+  <!-- ===== BLOC BIOGRAPHIE DE L'AUTEUR ===== -->
+  <!-- ASIDE : Balise HTML5 sémantique pour un contenu complémentaire/tangentiel.
+       Utilisée ici car la bio est liée mais pas essentielle au contenu principal.
+       Améliore la structure sémantique et l'accessibilité. -->
   <aside class="mini-bio">
     <div class="mini-bio-header">
       <h3>À propos de moi...</h3>
+      <!-- Avatar de l'auteur (via CSS background-image) -->
       <div class="avatar"></div>
     </div>
+    <!-- Description courte de l'auteur -->
     <p>
-      Exploratrice d’univers fantastiques et archiviste des chroniques oubliées, je voyage de table en table pour partager mes découvertes rôlistes.<br>
-      <em>J’ai survécu à 3 campagnes, 2 MJ sadiques, et un D20 capricieux.</em>
+      Exploratrice d'univers fantastiques et archiviste des chroniques oubliées, je voyage de table en table pour partager mes découvertes rôlistes.<br>
+      <em>J'ai survécu à 3 campagnes, 2 MJ sadiques, et un D20 capricieux.</em>
     </p>
+    <!-- Lien vers la page About complète -->
     <a href="./pages/about.html" class="bio-button">En savoir plus ?</a>
   </aside>
 </section>
 
-
-<!-- SECTION ARTICLES RECENTS -->
+<!-- ======================================= -->
+<!-- SECTION ARTICLES RECENTS - Vitrine des derniers articles -->
+<!-- ======================================= -->
 <section class="articles-recents">
   <h2 class="section-title">Articles Récents</h2>
 
+<!-- Conteneur des cartes d'articles -->
 <div class="articles-wrapper" id="articles-wrapper">
 
+<!-- ========== ARTICLE 1 ========== -->
+<!-- ARTICLE : Balise HTML5 sémantique pour du contenu autonome et réutilisable.
+     Un article doit pouvoir être extrait et compris indépendamment du reste de la page.
+     Idéal pour des posts de blog, articles de presse, ou cartes de contenu.
+     Classe "article1" : Permet le tracking des articles lus via localStorage. -->
 <article class="article article1">
+  <!-- Image en background-image (CSS) plutôt que <img> pour un meilleur contrôle
+       du positionnement et du recadrage (background-size, background-position). -->
   <div class="article-image" style="background-image: url('./assets/images/article1_jdr.webp');"></div>
   <div class="article-text">
     <h3>Par où commencer ?</h3>
@@ -106,6 +198,7 @@
   </div>
 </article>
 
+<!-- ========== ARTICLE 2 ========== -->
   <article class="article article2">
     <div class="article-image" style="background-image: url('./assets/images/article2_jdr_440x440.webp');"></div>
     <div class="article-text">
@@ -115,6 +208,7 @@
     </div>
   </article>
 
+<!-- ========== ARTICLE 3 ========== -->
   <article class="article article3">
     <div class="article-image" style="background-image: url('./assets/images/article3_final_jdr_440x440.webp');"></div>
     <div class="article-text">
@@ -124,6 +218,7 @@
     </div>
   </article>
 
+<!-- ========== ARTICLE 4 ========== -->
   <article class="article article4">
     <div class="article-image" style="background-image: url('./assets/images/article_4_mj_conteur.webp');"></div>
     <div class="article-text">
@@ -135,17 +230,31 @@
 </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ======================== -->
+<!-- FOOTER - Pied de page -->
+<!-- ======================== -->
 <footer class="site-footer">
+  <!-- Colonne gauche du footer : logo et copyright -->
   <div class="footer-left">
     <img src="./assets/images/Logo.png" alt="Logo Les Chroniques du JDR" class="footer-logo">
     <p class="footer-copyright">© 2025 - Les Chroniques du JDR. Tous droits réservés.</p>
   </div>
 
+  <!-- Colonne droite du footer : réseaux sociaux et liens -->
   <div class="footer-right">
     <p class="footer-title">Suivez-moi sur les réseaux sociaux :</p>
 
+    <!-- ===== LIENS RÉSEAUX SOCIAUX ===== -->
     <div class="footer-socials">
+      <!-- TARGET="_blank" : Ouvre le lien dans un nouvel onglet.
+           
+           REL="noopener" : Sécurité importante ! Empêche la page ouverte d'accéder
+           à window.opener, évitant ainsi une faille de sécurité (tabnabbing).
+           La page externe ne peut pas manipuler votre site.
+           
+           ARIA-LABEL : Texte descriptif pour les lecteurs d'écran.
+           Essentiel car l'icône seule (image) n'est pas suffisamment explicite
+           pour les utilisateurs malvoyants. -->
       <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
         <img src="./assets/images/facebook.png" alt="Facebook">
       </a>
@@ -160,6 +269,12 @@
       </a>
     </div>
 
+    <!-- ===== NAVIGATION SECONDAIRE DU FOOTER ===== -->
+    <!-- ARIA-LABEL : Fournit un nom accessible à cette navigation.
+         Comme il y a plusieurs <nav> sur la page (header + footer),
+         aria-label permet aux lecteurs d'écran de différencier
+         "navigation principale" de "navigation de pied de page".
+         Améliore l'expérience utilisateur pour les personnes malvoyantes. -->
     <nav class="footer-menu" aria-label="Liens de pied de page">
       <a href="index.html">Accueil</a>
       <span class="footer-separator">|</span>
@@ -168,10 +283,12 @@
       <a href="./pages/about.html">À propos</a>
     </nav>
 
+    <!-- Mention du projet -->
     <p class="footer-mention">Projet réalisé dans le cadre de la formation DWWM - ENACO</p>
   </div>
 </footer>
 
+<!-- Bouton de retour en haut de page (géré par script_index.js) -->
 <button id="backToTop" title="Retour en haut">↑</button>
 
 </body>

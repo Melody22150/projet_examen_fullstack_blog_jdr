@@ -1,9 +1,29 @@
 <?php
+/**
+ * =============================================
+ * LISTE DES COMMENTAIRES - Interface CRUD
+ * =============================================
+ * Description : Affiche tous les commentaires ou ceux d'un article spécifique
+ * Auteur : Mélody
+ * Date : Janvier 2026
+ * Fonctionnalités :
+ * - Liste des commentaires avec détails (auteur, article, note, date)
+ * - Filtrage optionnel par article via paramètre GET
+ * - Action : Supprimer un commentaire
+ * - Bouton pour ajouter un commentaire
+ */
+
+// Activation de l'affichage des erreurs pour le développement
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
+// Inclusion de la connexion à la base de données
 require_once __DIR__ . '/../database.php';
 
+// Récupération de l'ID de l'article pour filtrage (optionnel)
 $article_id = isset($_GET['article_id']) ? (int)$_GET['article_id'] : 0;
+
+// Variables pour gérer les messages et les données
 $message = '';
 $message_type = '';
 $comments = [];

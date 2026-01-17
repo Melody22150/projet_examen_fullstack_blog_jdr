@@ -1,7 +1,31 @@
+/**
+ * =============================================
+ * FEUILLE DE STYLE INDEX - LES CHRONIQUES DU JDR
+ * =============================================
+ * Auteur : Mélody
+ * Date : Janvier 2026
+ * Description : Styles de la page d'accueil avec design responsive
+ */
+
+/* ===== TRANSITION GLOBALE ===== */
+/* TRANSITION : Anime les changements de propriétés CSS de manière fluide.
+   - all : Applique la transition à toutes les propriétés modifiées
+   - 0.3s : Durée de l'animation (300 millisecondes)
+   - ease-in-out : Courbe de vitesse (lent au début, rapide au milieu, lent à la fin) */
 .main-nav, .navbar {
   transition: all 0.3s ease-in-out;
 }
 
+/* ===== POLICES PERSONNALISÉES ===== */
+/* @FONT-FACE : Permet d'utiliser des polices custom non-standard.
+   - font-family : Nom de la police que vous utiliserez dans le CSS
+   - src : Chemin vers le fichier de police
+   - WOFF2 : Format de police web compressé (meilleure performance que TTF/OTF)
+   
+   Avantages :
+   - Contrôle total du design typographique
+   - Indépendance vis-à-vis des polices système
+   - Compatibilité multi-navigateurs */
 @font-face {
   font-family: 'Nova Cut';
   src: url('../fonts/NovaCut.woff2');
@@ -57,7 +81,12 @@
   src: url('../fonts/Livvic-LightItalic.woff2');
 }
 
-/* GENERAL */
+/* ===== STYLES GÉNÉRAUX ===== */
+/* RESET CSS : Supprime les marges/padding par défaut du navigateur
+   pour un contrôle total du layout.
+   
+   OVERFLOW-X: hidden : Évite les barres de défilement horizontales
+   lorsque le contenu dépasse (utile pour les éléments full-width). */
 body {
   margin: 0;
   padding: 0;
@@ -65,7 +94,15 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER */
+/* ===== HEADER - EN-TÊTE DU SITE ===== */
+/* FLEXBOX : Système de mise en page flexible et puissant.
+   - display: flex : Active le contexte flexbox
+   - flex-direction: column : Empile les enfants verticalement
+   - align-items: center : Centre horizontalement dans une colonne
+   
+   BOX-SIZING: border-box : Inclut padding et border dans la largeur totale.
+   Sans cela, width: 100% + padding dépasserait le conteneur.
+   Pratique recommandée pour éviter les calculs complexes. */
 .site-header {
   display: flex;
   flex-direction: column;
@@ -94,7 +131,12 @@ body {
   height: auto;
 }
 
-/* TITRE */
+/* ===== TITRE PRINCIPAL ===== */
+/* WHITE-SPACE: nowrap : Empêche le texte de passer à la ligne.
+   Garantit que le titre reste sur une seule ligne.
+   
+   FLEX: 1 : Prend tout l'espace disponible dans le conteneur flex.
+   Permet au titre de s'étendre entre les deux logos. */
 .site-title {
   font-size: 90px;
   font-weight: 400;
@@ -106,8 +148,17 @@ body {
   white-space: nowrap;
 }
 
-/* MESSAGE DE BIENVENUE */
-
+/* ===== POPUP DE BIENVENUE ===== */
+/* POSITION: fixed : Élément positionné par rapport à la fenêtre du navigateur.
+   Reste en place même lors du scroll.
+   - top: 0, left: 0 : Positionné en haut à gauche
+   - width: 100%, height: 100% : Occupe tout l'écran
+   
+   Z-INDEX: 9999 : Définit l'ordre d'empilement (plus le nombre est élevé, plus l'élément
+   est au-dessus). 9999 garantit que le popup est au-dessus de tout le reste.
+   
+   RGBA : Couleur avec canal alpha (transparence).
+   rgba(0, 0, 0, 0.6) = noir avec 60% d'opacité (overlay semi-transparent). */
 .popup {
   position: fixed;
   top: 0;
@@ -170,7 +221,15 @@ body {
   animation: fadeIn 1s ease-in-out forwards;
 }
 
-/* Animation de disparition en fondu */
+/* ===== ANIMATIONS CSS ===== */
+/* @KEYFRAMES : Définit une animation CSS réutilisable.
+   Permet de créer des animations complexes sans JavaScript.
+   
+   - from/to : États de départ et d'arrivée de l'animation
+   - opacity : Contrôle la transparence (0 = invisible, 1 = opaque)
+   - transform: translateY : Déplace l'élément verticalement sans affecter le layout
+   
+   Avantage des animations CSS : Performances optimisées par le GPU du navigateur. */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -182,12 +241,25 @@ body {
   }
 }
 
-/* Classe à ajouter pour déclencher le fade out */
+/* ANIMATION : Applique l'animation définie ci-dessus.
+   - fadeOut : Nom de l'animation @keyframes
+   - 1s : Durée de l'animation
+   - ease-in-out : Courbe de progression
+   - forwards : Conserve l'état final après l'animation (reste invisible) */
 .welcome-banner.fade-out {
   animation: fadeOut 1s ease-in-out forwards;
 }
 
-/* MENU D'ACCUEIL */
+/* ===== MENU DE NAVIGATION ===== */
+/* UNITÉS VIEWPORT :
+   - 100vw : 100% de la largeur de la fenêtre du navigateur (viewport width)
+   Permet de créer un élément full-width même dans un conteneur limité.
+   
+   CALC() : Fonction CSS pour effectuer des calculs.
+   calc(-50vw + 50%) : Technique pour "casser" un conteneur max-width.
+   - -50vw : Recule de la moitié de la largeur de l'écran
+   - +50% : Avance de la moitié de la largeur du conteneur parent
+   Résultat : L'élément s'étend sur toute la largeur de l'écran. */
 .main-nav {
   width: 100vw;
   background-color: #FFCC8C;
@@ -200,6 +272,7 @@ body {
   margin-right: calc(-50vw + 50%);
   box-sizing: border-box;
 }
+
 .nav-inner {
   max-width: 1350px;
   margin: 0 auto;
@@ -238,12 +311,37 @@ body {
   transition: all 0.3s ease;
 }
 
+/* ===== EFFETS AU SURVOL (HOVER) ===== */
+/* :HOVER : Pseudo-classe déclenchée au survol de la souris.
+   
+   TRANSFORM: translateY(-5px) : Déplace l'élément de 5px vers le haut.
+   Crée un effet de "soulèvement" interactif.
+   
+   Avantage de transform vs top/margin :
+   - Transform n'affecte pas le layout (pas de reflow)
+   - Optimisé par le GPU (performances)
+   - Idéal pour les animations */
 .main-nav .nav-btn:hover {
   transform: translateY(-5px);
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.35);
 }
 
-/* ACCESSIBILITÉ + BOUTON NAV-TOGGLE */
+/* ===== ACCESSIBILITÉ : TEXTE POUR LECTEURS D'ÉCRAN ===== */
+/* SR-ONLY (Screen Reader Only) : Technique d'accessibilité WCAG.
+   Cache visuellement le texte MAIS le garde accessible aux lecteurs d'écran.
+   
+   Pourquoi ne pas utiliser display: none ?
+   - display: none : Complètement ignoré par les lecteurs d'écran
+   - visibility: hidden : Aussi ignoré par les lecteurs d'écran
+   
+   Cette technique utilise :
+   - position: absolute : Retire du flux normal
+   - width: 1px, height: 1px : Minuscule mais existant
+   - clip: rect(0,0,0,0) : Masque visuellement
+   - overflow: hidden : Cache tout débordement
+   
+   Résultat : Invisible à l'œil mais annoncé par les technologies d'assistance.
+   Essentiel pour l'accessibilité RGAA/WCAG. */
 .sr-only {
   position:absolute;
   width:1px;
@@ -280,27 +378,52 @@ body {
   transition: .3s;
 }
 
-/* Corrige l'animation en X : on part du sr-only */
+/* ===== ANIMATION DU MENU BURGER ===== */
+/* SÉLECTEUR D'ATTRIBUT : [aria-expanded="true"]
+   Cible l'élément quand son attribut aria-expanded vaut "true".
+   Permet de styler différemment selon l'état (ouvert/fermé).
+   
+   TRANSFORM : Manipulations 2D/3D sans affecter le layout.
+   - translateY(8px) : Déplace de 8px vers le bas
+   - rotate(45deg) : Rotation de 45 degrés (forme un X)
+   
+   SÉLECTEUR ADJACENT : .sr-only + .bar
+   Le "+" cible le premier .bar qui suit immédiatement .sr-only.
+   
+   TRANSFORM-ORIGIN: center : Point de pivot de la rotation (centre de l'élément).
+   Important pour que les barres pivotent à leur centre, pas à leur coin. */
 .nav-toggle[aria-expanded="true"] .sr-only + .bar {
   transform: translateY(8px) rotate(45deg);
 }
 
+/* Barre du milieu : disparition avec opacité */
 .nav-toggle[aria-expanded="true"] .sr-only + .bar + .bar {
   opacity: 0;
 }
 
+/* Troisième barre : rotation inverse pour former le X */
 .nav-toggle[aria-expanded="true"] .sr-only + .bar + .bar + .bar {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* au cas où : s'assure que l'animation pivote au centre */
+/* Configuration des transitions pour les animations fluides */
 .nav-toggle .bar {
   transform-origin: center;
   transition: transform .3s, opacity .3s;
 }
 
-/* BANNIERE D'ACCUEIL */
-
+/* ===== BANNIÈRE HERO (IMAGE DE FOND) ===== */
+/* BACKGROUND (propriété raccourcie) :
+   - url() : Chemin de l'image
+   - center : Position horizontale et verticale (centrée)
+   - cover : Redimensionne l'image pour couvrir tout le conteneur
+     (maintient le ratio, peut rogner les bords)
+   - no-repeat : N'affiche l'image qu'une seule fois
+   
+   Alternative à <img> pour les images décoratives (non-sémantiques).
+   
+   POSITION: relative : Crée un contexte de positionnement pour les enfants en position: absolute.
+   Les éléments enfants avec position: absolute se positionneront par rapport à ce conteneur. */
 .banniere {
   position: relative;
   background: url("../images/jdr_banner_1440x500.webp") center/cover no-repeat;
@@ -312,7 +435,6 @@ body {
   margin-top: 60px;
   box-sizing: border-box;
 }
-
 
 .banniere-content {
   max-width: 1350px;
@@ -363,6 +485,13 @@ body {
   margin-left: 250px;
 }
 
+/* Bouton call-to-action de la bannière */
+/* POSITION: absolute : Positionné par rapport au parent en position: relative.
+   - bottom: 30px : 30px depuis le bas du conteneur parent
+   - left: 85px : 85px depuis la gauche du conteneur parent
+   
+   Retire l'élément du flux normal (n'affecte pas le positionnement des autres éléments).
+   Permet un contrôle précis du placement. */
 .btn-banniere {
   position: absolute;
   bottom: 30px; 
@@ -384,8 +513,16 @@ body {
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.35);
 }
 
-/* INTRODUCTION */
-
+/* ===== SECTION INTRO + BIO (LAYOUT FLEXBOX) ===== */
+/* FLEXBOX AVANCÉ :
+   - justify-content: space-between : Espace maximum entre les éléments enfants
+   - align-items: flex-start : Aligne en haut (pas de stretch)
+   - gap: 0px : Espacement entre les éléments flex (alternative moderne aux margins)
+   
+   Avantages du flexbox :
+   - Alignement automatique
+   - Responsive facile
+   - Ordre modifiable avec order */
 .intro-bio {
   display: flex;
   justify-content: space-between;
@@ -550,6 +687,11 @@ body {
   padding-left: 30px;
 }
 
+/* Conteneur des cartes d'articles */
+/* FLEX-WRAP: wrap : Permet aux éléments de passer à la ligne suivante si l'espace manque.
+   Sans wrap, les éléments seraient compressés sur une seule ligne.
+   
+   GAP: 100px : Espacement entre les cartes (moderne, évite margin-right/margin-bottom). */
 .articles-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -778,6 +920,17 @@ body {
   outline: none;
 }
 
+/* ===== ACCESSIBILITÉ : FOCUS CLAVIER ===== */
+/* :FOCUS-VISIBLE : Pseudo-classe moderne pour la navigation clavier.
+   Affiche un indicateur de focus UNIQUEMENT lors de la navigation au clavier (Tab).
+   Pas affiché lors du clic souris (meilleur UX).
+   
+   BOX-SHADOW en couches : Crée un double contour pour une meilleure visibilité.
+   - 0 0 0 3px #FFF0DC : Premier contour clair (3px)
+   - 0 0 0 6px #8F5000 : Second contour foncé (6px)
+   
+   Important pour l'accessibilité WCAG 2.1 : Les éléments interactifs doivent
+   avoir un indicateur de focus visible (ratio de contraste 3:1 minimum). */
 .footer-socials a:focus-visible {
   box-shadow: 0 0 0 3px #FFF0DC, 0 0 0 6px #8F5000;
 }
@@ -802,6 +955,15 @@ body {
   opacity: .7;
 }
 
+/* ===== BOUTON RETOUR EN HAUT ===== */
+/* POSITION: fixed : Reste visible même lors du scroll.
+   - bottom: 30px, right: 30px : Ancré en bas à droite
+   - z-index: 999 : Au-dessus du contenu normal (mais sous le popup 9999)
+   
+   BORDER-RADIUS: 50% : Crée un cercle parfait (si width = height).
+   
+   DISPLAY: none : Caché par défaut, affiché dynamiquement par JavaScript
+   après 300px de scroll. */
   #backToTop {
   position: fixed;
   bottom: 30px;

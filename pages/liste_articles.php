@@ -1,4 +1,18 @@
 <?php
+/**
+ * =============================================
+ * LISTE DES ARTICLES - Interface CRUD
+ * =============================================
+ * Description : Affiche tous les articles du blog avec leurs métadonnées
+ * Auteur : Mélody
+ * Date : Janvier 2026
+ * Fonctionnalités :
+ * - Liste complète des articles avec auteur et nombre de commentaires
+ * - Actions : Modifier, Supprimer, Commenter, Voir commentaires
+ * - Bouton de création d'article
+ */
+
+// Activation de l'affichage des erreurs pour le développement
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,14 +21,18 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Métadonnées et encodage -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Feuille de style commune aux pages CRUD -->
     <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Liste des articles - Les Chroniques du JDR</title>
 </head>
 <body>
+    <!-- Titre principal de la page -->
     <h1 class="page-title">Les Chroniques du JDR - Articles</h1>
     
+    <!-- Navigation entre les sections CRUD -->
     <div class="nav">
         <a href="../index.php">Accueil</a>
         <a href="liste_articles.php">Articles</a>
@@ -22,15 +40,19 @@ error_reporting(E_ALL);
         <a href="liste_commentaires.php">Commentaires</a>
     </div>
     
+    <!-- Bouton pour créer un nouvel article -->
     <div class="create-article-container">
-        <a href="creer_article.php" class="btn-create-article">➕ Créer un article</a>
+        <a href="creer_article.php" class="btn-create-article">➥ Créer un article</a>
     </div>
     
     <?php
+    // Inclusion de la connexion à la base de données
     require_once __DIR__ . '/../database.php';
     
     try {
-        // Requête préparée pour récupérer tous les articles avec le pseudo de l'auteur et le nombre de commentaires
+        // Requête préparée pour récupérer tous les articles
+        // Jointure avec utilisateur pour obtenir le pseudo de l'auteur
+        // Sous-requête pour compter les commentaires par article
         $sql = "SELECT 
                     a.article_id,
                     a.titre,
@@ -48,9 +70,10 @@ error_reporting(E_ALL);
         $stmt->execute();
         $articles = $stmt->fetchAll();
         
+        // Affichage du nombre total d'articles trouvés
         echo "<p class='articles-count'><strong>" . count($articles) . " article(s) trouvé(s)</strong></p>";
         
-        // Affichage des articles
+        // Boucle d'affichage de chaque article
         foreach ($articles as $article) {
             echo '<div class="article-liste">';
             
