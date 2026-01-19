@@ -1,7 +1,13 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// ========================================
+// FORMULAIRE DE MODIFICATION D'UTILISATEUR
+// ========================================
 
 $auteur_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($auteur_id <= 0) { die('❌ ID utilisateur manquant'); }
@@ -22,37 +28,16 @@ try {
         $nouveau_mdp = trim($_POST['nouveau_mdp'] ?? '');
 
         try {
-            if ($pseudo === '' || !preg_match('/^[a-zA-Z0-9_]{3,50}$/', $pseudo)) {
-                throw new Exception('Le pseudo doit contenir entre 3 et 50 caractères alphanumériques.');
-            }
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                throw new Exception("L'email n'est pas valide.");
-            }
-
-            $mdp_hash = $user['mot_de_passe'];
-            if ($nouveau_mdp !== '') {
-                if (strlen($nouveau_mdp) < 8) {
-                    throw new Exception('Le mot de passe doit contenir au moins 8 caractères.');
-                }
-                $mdp_hash = password_hash($nouveau_mdp, PASSWORD_BCRYPT);
-            }
-
-            $sql = 'UPDATE utilisateur SET pseudo = :pseudo, email = :email, mot_de_passe = :mdp WHERE auteur_id = :id';
-            $up = $pdo->prepare($sql)->execute([
-                ':pseudo' => $pseudo,
-                ':email' => $email,
-                ':mdp' => $mdp_hash,
-                ':id' => $auteur_id,
-            ]);
-
+            // Utilisation de la fonction du fichier functions.php
+            $up = modifierUtilisateur($pdo, $auteur_id, $pseudo, $email, $nouveau_mdp !== '' ? $nouveau_mdp : null);
+            
             if ($up) {
                 $message = '✅ utilisateur modifié avec succès';
                 $message_type = 'success';
-                $user['pseudo'] = $pseudo;
-                $user['email'] = $email;
-                $user['mot_de_passe'] = $mdp_hash;
-            } else {
-                throw new Exception('La modification a échoué');
+                // Rafraîchir les données de l'utilisateur
+                $stmt = $pdo->prepare('SELECT * FROM utilisateur WHERE auteur_id = :id');
+                $stmt->execute([':id' => $auteur_id]);
+                $user = $stmt->fetch();
             }
         } catch (Exception $e) {
             $message = '❌ ' . htmlspecialchars($e->getMessage());

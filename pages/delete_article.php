@@ -1,15 +1,14 @@
 <?php
-/**
- * Formulaire de suppression d'un article
- * Auteur : Mélody
- * Date : Janvier 2026
- */
-
-require_once __DIR__ . '/../database.php';
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// ========================================
+// FORMULAIRE DE SUPPRESSION D'ARTICLE
+// ========================================
 
 $article = null;
 $message = '';
@@ -40,10 +39,8 @@ try {
         $confirmation = isset($_POST['confirmation']) ? $_POST['confirmation'] : '';
         
         if ($confirmation === 'OUI') {
-            // Supprimer l'article
-            $sql_delete = "DELETE FROM article WHERE article_id = :article_id";
-            $stmt_delete = $pdo->prepare($sql_delete);
-            $resultat = $stmt_delete->execute([':article_id' => $article_id]);
+            // Utilisation de la fonction du fichier functions.php
+            $resultat = supprimerArticle($pdo, $article_id);
             
             if ($resultat) {
                 $message = "✅ Article supprimé avec succès !";

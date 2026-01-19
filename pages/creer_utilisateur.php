@@ -56,6 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($message): ?>
             <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
+            <?php if ($message_type === 'success'): ?>
+                <script>
+                    setTimeout(function() {
+                    window.location.href = 'liste_utilisateurs.php';
+                    }, 2000); // Redirection après 2 secondes
+                </script>
+            <?php endif; ?>
         <?php endif; ?>
 
         <form method="post">

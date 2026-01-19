@@ -123,6 +123,97 @@ function creerUtilisateur(PDO $pdo, string $pseudo, string $email, string $mot_d
 }
 
 /**
+ * Gère l'upload d'une image article
+ * @param array $file - $_FILES['image']
+ * @return string|null - Chemin relatif de l'image ou null
+ * @throws Exception - En cas d'erreur d'upload
+ */
+function uploadImageArticle(array $file): ?string {
+    if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        throw new Exception('Erreur lors de l\'upload du fichier.');
+    }
+    
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $max_size = 5 * 1024 * 1024; // 5 MB
+    
+    if (!in_array($file['type'], $allowed_types)) {
+        throw new Exception('Format d\'image non autorisé. Utilisez JPG, PNG, GIF ou WebP.');
+    }
+    
+    if ($file['size'] > $max_size) {
+        throw new Exception('L\'image est trop volumineuse (max 5 MB).');
+    }
+    
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $filename = uniqid('article_', true) . '.' . $extension;
+    $upload_dir = __DIR__ . '/../assets/images/';
+    
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0755, true);
+    }
+    
+    $upload_path = $upload_dir . $filename;
+    
+    if (!move_uploaded_file($file['tmp_name'], $upload_path)) {
+        throw new Exception('Erreur lors de l\'enregistrement de l\'image.');
+    }
+    
+    return 'assets/images/' . $filename;
+}
+
+/**
+ * Nettoie les images orphelines (non référencées en base de données)
+ * @param PDO $pdo - Connexion à la base de données
+ * @return array - ['supprimees' => count, 'fichiers' => array of deleted files]
+ */
+function nettoyerImagesOrphelines(PDO $pdo): array {
+    $upload_dir = __DIR__ . '/../assets/images/';
+    
+    // Récupérer toutes les images référencées en base
+    $sql = "SELECT DISTINCT image_url FROM article WHERE image_url IS NOT NULL";
+    $stmt = $pdo->query($sql);
+    $images_bdd = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    
+    // Extraire juste les noms de fichiers (sans le chemin 'assets/images/')
+    $images_bdd_noms = array_map(function($path) {
+        return basename($path);
+    }, $images_bdd);
+    
+    // Lister tous les fichiers du dossier images/
+    $fichiers_disque = [];
+    if (is_dir($upload_dir)) {
+        $fichiers_disque = array_diff(scandir($upload_dir), ['.', '..']);
+    }
+    
+    // Trouver les orphelins : fichiers présents sur le disque mais pas en BDD
+    $orphelins = [];
+    foreach ($fichiers_disque as $fichier) {
+        // Ne supprimer que les fichiers article_* générés par l'upload
+        if (strpos($fichier, 'article_') === 0 && !in_array($fichier, $images_bdd_noms)) {
+            $orphelins[] = $fichier;
+        }
+    }
+    
+    // Supprimer les orphelins
+    $supprimes = [];
+    foreach ($orphelins as $orphelin) {
+        $chemin_complet = $upload_dir . $orphelin;
+        if (file_exists($chemin_complet) && unlink($chemin_complet)) {
+            $supprimes[] = $orphelin;
+        }
+    }
+    
+    return [
+        'supprimees' => count($supprimes),
+        'fichiers' => $supprimes
+    ];
+}
+
+/**
  * Crée un nouvel article dans la base de données
  * @param PDO $pdo - Connexion à la base de données
  * @param string $titre - Titre de l'article
@@ -152,7 +243,7 @@ function creerArticle(PDO $pdo, string $titre, string $extrait, string $contenu,
     }
     
     // Validation catégorie
-    $categories_valides = ['Conseils', 'Critiques', 'Actualités'];
+    $categories_valides = ['Scénarios','Règles','Matériel','Univers','Conseils'];
     if (!in_array($categorie, $categories_valides)) {
         throw new Exception("Catégorie invalide. Choisissez parmi : " . implode(', ', $categories_valides));
     }
@@ -209,7 +300,8 @@ function modifierArticle(PDO $pdo, int $article_id, string $titre, string $extra
         throw new Exception("Le titre doit contenir entre 5 et 200 caractères.");
     }
     
-    $categories_valides = ['Conseils', 'Critiques', 'Actualités'];
+    // Validation catégorie
+    $categories_valides = ['Scénarios','Règles','Matériel','Univers','Conseils'];
     if (!in_array($categorie, $categories_valides)) {
         throw new Exception("Catégorie invalide.");
     }
@@ -243,18 +335,30 @@ function modifierArticle(PDO $pdo, int $article_id, string $titre, string $extra
  */
 function supprimerArticle(PDO $pdo, int $article_id): bool {
     
-    // Vérifier existence
-    $sql = "SELECT COUNT(*) FROM article WHERE article_id = :id";
+    // Récupérer l'image de l'article avant suppression
+    $sql = "SELECT image_url FROM article WHERE article_id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':id' => $article_id]);
-    if ($stmt->fetchColumn() == 0) {
+    $article = $stmt->fetch();
+    
+    if (!$article) {
         throw new Exception("Article introuvable.");
     }
     
-    // Suppression (CASCADE supprime les commentaires automatiquement)
+    // Suppression de l'article en base (CASCADE supprime les commentaires automatiquement)
     $sql = "DELETE FROM article WHERE article_id = :id";
     $stmt = $pdo->prepare($sql);
-    return $stmt->execute([':id' => $article_id]);
+    $resultat = $stmt->execute([':id' => $article_id]);
+    
+    // Supprimer l'image du disque si elle existe
+    if ($resultat && !empty($article['image_url'])) {
+        $image_path = __DIR__ . '/../' . $article['image_url'];
+        if (file_exists($image_path)) {
+            unlink($image_path);
+        }
+    }
+    
+    return $resultat;
 }
 
 /**
@@ -345,12 +449,12 @@ function supprimerUtilisateur(PDO $pdo, int $auteur_id): bool {
  * @param PDO $pdo - Connexion à la base de données
  * @param int $article_id - ID de l'article commenté
  * @param int $auteur_id - ID de l'auteur du commentaire
- * @param string $contenu - Contenu du commentaire
+ * @param string $contenu_commentaire - Contenu du commentaire
  * @param int $note - Note de 1 à 5
  * @return int - ID du commentaire créé
  * @throws Exception - En cas d'erreur
  */
-function creerCommentaire(PDO $pdo, int $article_id, int $auteur_id, string $contenu, int $note): int {
+function creerCommentaire(PDO $pdo, int $article_id, int $auteur_id, string $contenu_commentaire, int $note): int {
     
     // Validation note
     if ($note < 1 || $note > 5) {
@@ -358,7 +462,7 @@ function creerCommentaire(PDO $pdo, int $article_id, int $auteur_id, string $con
     }
     
     // Validation contenu
-    if (strlen($contenu) < 10) {
+    if (strlen($contenu_commentaire) < 10) {
         throw new Exception("Le commentaire doit contenir au moins 10 caractères.");
     }
     
@@ -371,14 +475,14 @@ function creerCommentaire(PDO $pdo, int $article_id, int $auteur_id, string $con
     }
     
     // Insertion
-    $sql = "INSERT INTO commentaire (article_id, auteur_id, contenu, note) 
-            VALUES (:article_id, :auteur_id, :contenu, :note)";
+    $sql = "INSERT INTO commentaire (article_id, auteur_id, contenu_commentaire, note) 
+            VALUES (:article_id, :auteur_id, :contenu_commentaire, :note)";
     
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':article_id' => $article_id,
         ':auteur_id' => $auteur_id,
-        ':contenu' => $contenu,
+        ':contenu_commentaire' => $contenu_commentaire,
         ':note' => $note
     ]);
     

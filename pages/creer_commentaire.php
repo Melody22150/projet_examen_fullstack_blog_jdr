@@ -1,7 +1,13 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// ========================================
+// FORMULAIRE DE CRÉATION DE COMMENTAIRE
+// ========================================
 
 $message = '';
 $message_type = '';
@@ -28,19 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($note === null || $note < 1 || $note > 5) { throw new Exception('La note doit être comprise entre 1 et 5.'); }
         if ($article_id <= 0) { throw new Exception('Veuillez sélectionner un article.'); }
 
-        $sql = 'INSERT INTO commentaire (contenu_commentaire, note, auteur_id, article_id) VALUES (:contenu, :note, :auteur_id, :article_id)';
-        $ok = $pdo->prepare($sql)->execute([
-            ':contenu' => $contenu,
-            ':note' => $note,
-            ':auteur_id' => $auteur_id,
-            ':article_id' => $article_id,
-        ]);
-        if ($ok) {
-            $message = '✅ Commentaire ajouté avec succès';
-            $message_type = 'success';
-        } else {
-            throw new Exception('Insertion du commentaire échouée');
-        }
+        // Utilisation de la fonction du fichier functions.php
+        creerCommentaire($pdo, $article_id, $auteur_id, $contenu, $note);
+        $message = '✅ Commentaire ajouté avec succès';
+        $message_type = 'success';
     } catch (Exception $e) {
         $message = '❌ ' . htmlspecialchars($e->getMessage());
         $message_type = 'error';

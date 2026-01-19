@@ -2,6 +2,11 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// ========================================
+// FORMULAIRE DE SUPPRESSION D'UTILISATEUR
+// ========================================
 
 $auteur_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($auteur_id <= 0) { die('❌ ID utilisateur manquant'); }
@@ -19,7 +24,8 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirmation = $_POST['confirmation'] ?? '';
         if ($confirmation === 'OUI') {
-            $del = $pdo->prepare('DELETE FROM utilisateur WHERE auteur_id = :id')->execute([':id' => $auteur_id]);
+            // Utilisation de la fonction du fichier functions.php
+            $del = supprimerUtilisateur($pdo, $auteur_id);
             if ($del) {
                 $message = '✅ utilisateur supprimé (articles et commentaires liés supprimés via CASCADE)';
                 $message_type = 'success';

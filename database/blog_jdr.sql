@@ -51,9 +51,9 @@ INSERT INTO `utilisateur` VALUES (1,'MelodyMJ','melody@jdr-blog.fr','$2y$12$abcD
 (5,'TestUser2025','test@exemple.fr','$2y$12$rw7d5PS55hKCg/Y5PRMbpObW5Cj5ZJXate7umRJwwcKCCof74eK2.','2025-11-11');
 
 INSERT INTO `article` VALUES (1,'Par où commencer ?',"Vous êtes curieux du JDR mais vous ne savez pas par où débuter ? Voici les bases pour bien démarrer une aventure autour d'une table. 
-Le jeu de rôle est avant tout une activité sociale et créative où l'imagination n'a pas de limites...",'Les bases pour bien démarrer une aventure JDR','Conseils','images/article1_jdr.webp','2025-11-11',1),
+Le jeu de rôle est avant tout une activité sociale et créative où l'imagination n'a pas de limites...",'Les bases pour bien démarrer une aventure JDR','Conseils','assets/images/article1_jdr.webp','2025-11-11',1),
 (2,'Créer un personnage vivant en 5 étapes','Nom, race, classe, motivation... Je vous guide pas à pas pour concevoir un personnage mémorable et immersif qui marquera vos parties de JDR. Un bon personnage 
-a une histoire, des motivations et des défauts qui le rendent attachant...','Guide complet pour créer un personnage mémorable','Conseils','images/article2_jdr_440x440.webp','2025-11-11',1);
+a une histoire, des motivations et des défauts qui le rendent attachant...','Guide complet pour créer un personnage mémorable','Conseils','assets/images/article2_jdr_440x440.webp','2025-11-11',1);
 
 INSERT INTO `commentaire` VALUES (2,'Très utile, merci pour les conseils pratiques.','2025-11-11 18:02:24',4,3,1),
 (3,'Le guide est clair et bien expliqué, parfait pour les débutants.','2025-11-11 18:02:24',5,3,2);

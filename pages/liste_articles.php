@@ -21,18 +21,14 @@ error_reporting(E_ALL);
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- Métadonnées et encodage -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Feuille de style commune aux pages CRUD -->
     <link rel="stylesheet" href="../assets/css/style_crud.css">
     <title>Liste des articles - Les Chroniques du JDR</title>
 </head>
 <body>
-    <!-- Titre principal de la page -->
     <h1 class="page-title">Les Chroniques du JDR - Articles</h1>
     
-    <!-- Navigation entre les sections CRUD -->
     <div class="nav">
         <a href="../index.php">Accueil</a>
         <a href="liste_articles.php">Articles</a>
@@ -40,13 +36,12 @@ error_reporting(E_ALL);
         <a href="liste_commentaires.php">Commentaires</a>
     </div>
     
-    <!-- Bouton pour créer un nouvel article -->
     <div class="create-article-container">
-        <a href="creer_article.php" class="btn-create-article">➥ Créer un article</a>
+        <a href="creer_article.php" class="btn-create-article">➕ Créer un article</a>
     </div>
     
     <?php
-    // Inclusion de la connexion à la base de données
+    
     require_once __DIR__ . '/../database.php';
     
     try {
@@ -79,7 +74,11 @@ error_reporting(E_ALL);
             
             // Affichage de l'image si elle existe
             if (!empty($article['image_url'])) {
-                echo '<img src="../' . htmlspecialchars($article['image_url']) . '" alt="' . htmlspecialchars($article['titre'] ?? '') . '" class="article-liste-image">';
+                // Si le chemin commence déjà par '../', on le garde tel quel
+                $img_path = (strpos($article['image_url'], '../') === 0) 
+                    ? $article['image_url'] 
+                    : '../' . $article['image_url'];
+                echo '<img src="' . htmlspecialchars($img_path) . '" alt="' . htmlspecialchars($article['titre'] ?? '') . '" class="article-liste-image">';
             }
             
             echo '<h2 class="article-liste-titre">' . htmlspecialchars($article['titre'] ?? '') . '</h2>';

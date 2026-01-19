@@ -1,16 +1,14 @@
 <?php
-/**
- * Formulaire de modification d'un article
- * Auteur : Mélody
- * Date : Janvier 2026
- */
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__ . '/../database.php';
 require_once __DIR__ . '/../includes/functions.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ========================================
+// FORMULAIRE DE MODIFICATION D'ARTICLE
+// ========================================
 
 $article = null;
 $message = '';
@@ -42,85 +40,35 @@ try {
         $categorie = trim($_POST['categorie'] ?? '');
         $image_url = $article['image_url']; // Conserver l'ancienne image par défaut
         
-        // Validation basique
-        if (empty($titre) || empty($contenu) || empty($categorie)) {
-            $message = "❌ Erreur : Tous les champs obligatoires doivent être remplis";
+        try {
+            // Gestion de l'upload d'image avec la fonction de functions.php
+            if (isset($_FILES['image'])) {
+                $nouvelle_image = uploadImageArticle($_FILES['image']);
+                if ($nouvelle_image !== null) {
+                    // Supprimer l'ancienne image si elle existe
+                    if (!empty($article['image_url']) && file_exists(__DIR__ . '/../' . $article['image_url'])) {
+                        unlink(__DIR__ . '/../' . $article['image_url']);
+                    }
+                    $image_url = $nouvelle_image;
+                }
+            }
+            
+            // Utilisation de la fonction modifierArticle de functions.php
+            $resultat = modifierArticle($pdo, $article_id, $titre, $extrait, $contenu, $categorie, $image_url);
+            
+            if ($resultat) {
+                $message = "✅ Article modifié avec succès !";
+                $message_type = 'success';
+                // Rafraîchir les données de l'article
+                $article['titre'] = $titre;
+                $article['contenu'] = $contenu;
+                $article['extrait'] = $extrait;
+                $article['categorie'] = $categorie;
+                $article['image_url'] = $image_url;
+            }
+        } catch (Exception $e) {
+            $message = '❌ ' . htmlspecialchars($e->getMessage());
             $message_type = 'error';
-        } else {
-            // Gestion de l'upload d'image (si une nouvelle image est fournie)
-            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-                $max_size = 5 * 1024 * 1024; // 5 MB
-                
-                try {
-                    if (!in_array($_FILES['image']['type'], $allowed_types)) {
-                        throw new Exception('Format d\'image non autorisé. Utilisez JPG, PNG, GIF ou WebP.');
-                    }
-                    
-                    if ($_FILES['image']['size'] > $max_size) {
-                        throw new Exception('L\'image est trop volumineuse (max 5 MB).');
-                    }
-                    
-                    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-                    $filename = uniqid('article_', true) . '.' . $extension;
-                    $upload_dir = __DIR__ . '/../assets/images/';
-                    
-                    if (!is_dir($upload_dir)) {
-                        mkdir($upload_dir, 0755, true);
-                    }
-                    
-                    $upload_path = $upload_dir . $filename;
-                    
-                    if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
-                        // Supprimer l'ancienne image si elle existe
-                        if (!empty($article['image_url']) && file_exists(__DIR__ . '/../' . $article['image_url'])) {
-                            unlink(__DIR__ . '/../' . $article['image_url']);
-                        }
-                        $image_url = 'assets/images/' . $filename;
-                    } else {
-                        throw new Exception('Erreur lors de l\'upload de l\'image.');
-                    }
-                } catch (Exception $e) {
-                    $message = '❌ ' . htmlspecialchars($e->getMessage());
-                    $message_type = 'error';
-                }
-            }
-            
-            // Mise à jour de l'article seulement si pas d'erreur
-            if (empty($message)) {
-                // Appel de la fonction updateArticle
-                $sql_update = "UPDATE article 
-                              SET titre = :titre, 
-                              contenu = :contenu, 
-                              extrait = :extrait, 
-                              categorie = :categorie, 
-                              image_url = :image_url
-                          WHERE article_id = :article_id";
-            
-                $stmt_update = $pdo->prepare($sql_update);
-                $resultat = $stmt_update->execute([
-                    ':titre' => $titre,
-                    ':contenu' => $contenu,
-                    ':extrait' => $extrait,
-                    ':categorie' => $categorie,
-                    ':image_url' => $image_url,
-                    ':article_id' => $article_id
-                ]);
-            
-                if ($resultat) {
-                    $message = "✅ Article modifié avec succès !";
-                    $message_type = 'success';
-                    // Rafraîchir les données de l'article
-                    $article['titre'] = $titre;
-                    $article['contenu'] = $contenu;
-                    $article['extrait'] = $extrait;
-                    $article['categorie'] = $categorie;
-                    $article['image_url'] = $image_url;
-                } else {
-                    $message = "❌ Erreur lors de la modification de l'article";
-                    $message_type = 'error';
-                }
-            }
         }
     }
     

@@ -3,6 +3,11 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// =================================
+// FORMULAIRE DE CRÉATION D'ARTICLE
+// =================================
 
 $categories = ['Scénarios','Règles','Matériel','Univers','Conseils'];
 $message = '';
@@ -23,70 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $extrait = trim($_POST['extrait'] ?? '');
     $categorie = trim($_POST['categorie'] ?? '');
     $auteur_id = intval($_POST['auteur_id'] ?? 0);
-    $image_url = null;
 
     try {
-        if ($titre === '' || strlen($titre) < 3 || strlen($titre) > 200) {
-            throw new Exception('Le titre doit contenir entre 3 et 200 caractères.');
-        }
-        if ($contenu === '') {
-            throw new Exception('Le contenu est obligatoire.');
-        }
-        if (!in_array($categorie, $categories, true)) {
-            throw new Exception('Catégorie invalide.');
-        }
-        if ($auteur_id <= 0) {
-            throw new Exception("Veuillez sélectionner un auteur.");
+        // Gestion de l'upload d'image avec la fonction de functions.php
+        $image_url = null;
+        if (isset($_FILES['image'])) {
+            $image_url = uploadImageArticle($_FILES['image']);
         }
         
-        // Gestion de l'upload d'image
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-            $max_size = 5 * 1024 * 1024; // 5 MB
-            
-            if (!in_array($_FILES['image']['type'], $allowed_types)) {
-                throw new Exception('Format d\'image non autorisé. Utilisez JPG, PNG, GIF ou WebP.');
-            }
-            
-            if ($_FILES['image']['size'] > $max_size) {
-                throw new Exception('L\'image est trop volumineuse (max 5 MB).');
-            }
-            
-            $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('article_', true) . '.' . $extension;
-            $upload_dir = __DIR__ . '/../assets/images/';
-            
-            if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
-            }
-            
-            $upload_path = $upload_dir . $filename;
-            
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
-                $image_url = '../assets/images/' . $filename;
-            } else {
-                throw new Exception('Erreur lors de l\'upload de l\'image.');
-            }
-        }
-
-        $sql = "INSERT INTO article (titre, contenu, extrait, categorie, image_url, auteur_id) 
-                VALUES (:titre, :contenu, :extrait, :categorie, :image_url, :auteur_id)";
-        $stmt = $pdo->prepare($sql);
-        $ok = $stmt->execute([
-            ':titre' => $titre,
-            ':contenu' => $contenu,
-            ':extrait' => ($extrait === '' ? null : $extrait),
-            ':categorie' => $categorie,
-            ':image_url' => ($image_url === '' ? null : $image_url),
-            ':auteur_id' => $auteur_id,
-        ]);
-
-        if ($ok) {
-            $message = '✅ Article créé avec succès !';
-            $message_type = 'success';
-        } else {
-            throw new Exception("Impossible de créer l'article.");
-        }
+        // Utilisation de la fonction creerArticle de functions.php
+        creerArticle($pdo, $titre, $extrait, $contenu, $auteur_id, $categorie, $image_url);
+        $message = '✅ Article créé avec succès !';
+        $message_type = 'success';
     } catch (Exception $e) {
         $message = '❌ ' . htmlspecialchars($e->getMessage());
         $message_type = 'error';
@@ -114,6 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php if ($message): ?>
         <div class="message <?php echo $message_type; ?>"><?php echo $message; ?></div>
+        <?php if ($message_type === 'success'): ?>
+            <script>
+                setTimeout(function() {
+                    window.location.href = 'liste_articles.php';
+                }, 2000); // Redirection après 2 secondes
+            </script>
+        <?php endif; ?>
     <?php endif; ?>
 
     <form method="post" enctype="multipart/form-data">

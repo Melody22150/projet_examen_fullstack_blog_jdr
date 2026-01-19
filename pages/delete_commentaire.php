@@ -2,6 +2,11 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// ========================================
+// FORMULAIRE DE SUPPRESSION DE COMMENTAIRE
+// ========================================
 
 $commentaire_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($commentaire_id <= 0) { die('❌ ID commentaire manquant'); }
@@ -21,7 +26,8 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirmation = $_POST['confirmation'] ?? '';
         if ($confirmation === 'OUI') {
-            $del = $pdo->prepare('DELETE FROM commentaire WHERE commentaire_id = :id')->execute([':id' => $commentaire_id]);
+            // Utilisation de la fonction du fichier functions.php
+            $del = supprimerCommentaire($pdo, $commentaire_id);
             if ($del) {
                 $message = '✅ Commentaire supprimé';
                 $message_type = 'success';
