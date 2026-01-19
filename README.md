@@ -1,30 +1,35 @@
 # 📚 Les Chroniques du JDR - Blog Communautaire
 
-Blog dédié au jeu de rôle sur table, développé pour l'association "La Compagnie des Âmes égarées".
+Blog dédié au jeu de rôle sur table, développé avec Docker pour une architecture complète et sécurisée.
 
 ## 🎯 Objectif du projet
 
-Créer une plateforme web permettant de partager articles, conseils et actualités sur le jeu de rôle, tout en favorisant les échanges entre rôlistes débutants et confirmés.
+Créer une plateforme web permettant de partager articles, conseils et actualités sur le jeu de rôle, avec un système CRUD complet, gestion d'images et tests automatisés.
 
 ---
 
 ## 🛠️ Technologies utilisées
 
+### Infrastructure
+- **Docker** - Conteneurisation (Apache + MySQL)
+- **Docker Compose** - Orchestration des services
+
 ### Front-end
 - **HTML5** - Structure sémantique
-- **CSS3** - Design responsive (mobile-first)
-- **JavaScript vanilla** - Interactions dynamiques
+- **CSS3** - Design responsive (desktop-first)
+- **JavaScript** - Interactions dynamiques
 
 ### Back-end
 - **PHP 8.4** - Logique serveur
 - **MySQL 8.0** - Base de données relationnelle
 - **PDO** - Accès sécurisé aux données
+- **Architecture procédurale structurée** - Séparation logique métier/présentation
 
-### Outils
-- **VS Code** - Éditeur de code
-- **MySQL Workbench** - Gestion de la base de données
-- **Git/GitHub** - Versionning du code
-- **PHP Built-in Server** - Serveur de développement
+### Sécurité
+- **Bcrypt** - Hashage des mots de passe (cost 12)
+- **Requêtes préparées** - Protection injection SQL
+- **Validation stricte** - Entrées utilisateur
+- **Upload sécurisé** - Images avec vérification MIME
 
 ---
 
@@ -32,220 +37,287 @@ Créer une plateforme web permettant de partager articles, conseils et actualit�
 
 Avant d'installer le projet, assurez-vous d'avoir :
 
-- ✅ **PHP 8.4+** installé ([télécharger PHP](https://windows.php.net/download/))
-- ✅ **MySQL 8.0+** installé ([télécharger MySQL](https://dev.mysql.com/downloads/installer/))
-- ✅ **Git** installé (optionnel, pour cloner le repo)
+- ✅ **Docker Desktop** installé ([télécharger Docker](https://www.docker.com/products/docker-desktop))
+- ✅ **Git** installé (pour cloner le repo)
 - ✅ Un navigateur web moderne (Chrome, Firefox, Edge)
 
 ### Vérifier l'installation
 ```bash
-# Vérifier PHP
-php -v
-
-# Vérifier MySQL (dans MySQL Workbench ou cmd)
-mysql --version
+# Vérifier Docker
+docker --version
+docker-compose --version
 ```
 
 ---
 
 ## 🚀 Installation
 
-### 1. Cloner ou télécharger le projet
+### 1. Cloner le projet
 
-**Option A : Avec Git**
 ```bash
-git clone https://github.com/ton-username/blog_jdr.git
-cd blog_jdr
-```
-
-**Option B : Sans Git**
-- Téléchargez le ZIP du projet
-- Décompressez dans un dossier de votre choix
-
----
-
-### 2. Créer la base de données
-
-**Ouvrez MySQL Workbench** et connectez-vous à votre instance MySQL locale.
-
-**Exécutez le script SQL** `blog_jdr.sql` situé à la racine du projet :
-```sql
--- Copier-coller le contenu de blog_jdr.sql dans MySQL Workbench
--- OU importer le fichier via : File > Run SQL Script
-```
-
-Ce script va :
-- ✅ Créer la base de données `blog_jdr`
-- ✅ Créer les 3 tables (`utilisateur`, `Article`, `Commentaire`)
-- ✅ Insérer des données de test
-
-**Vérification :**
-```sql
-USE blog_jdr;
-SHOW TABLES;
-SELECT * FROM Article;
-```
-
-Vous devriez voir 4 articles insérés.
-
----
-
-### 3. Configurer la connexion à la base de données
-
-**Ouvrez le fichier** `config/database.php` et **modifiez les identifiants** :
-```php
-<?php
-$host = 'localhost';
-$dbname = 'blog_jdr';
-$username = 'root';
-$password = 'VOTRE_MOT_DE_PASSE_MYSQL';  // ⚠️ Remplacez par votre mot de passe !
+git clone https://github.com/ton-username/blog_jdr_DOCKER.git
+cd blog_jdr_DOCKER
 ```
 
 ---
 
-### 4. Lancer le serveur de développement
+### 2. Lancer les conteneurs Docker
 
-**Dans un terminal, à la racine du projet** :
+**À la racine du projet** :
 ```bash
-# Naviguer vers le dossier du projet
-cd chemin/vers/blog_jdr
-
-# Lancer le serveur PHP sur le port 8000
-php -S localhost:8000
+docker-compose up -d
 ```
 
-Vous devriez voir :
-```
-PHP 8.4.14 Development Server (http://localhost:8000) started
+Ce qui lance :
+- ✅ Conteneur **Apache + PHP 8.4** (port 80)
+- ✅ Conteneur **MySQL 8.0** (port 3306)
+- ✅ Import automatique de la base de données
+
+**Vérifier que les conteneurs tournent :**
+```bash
+docker-compose ps
 ```
 
 ---
 
-### 5. Accéder au site
+### 3. Accéder au site
 
-**Ouvrez votre navigateur** et accédez à :
+**Ouvrez votre navigateur** :
 
-- 🏠 **Page d'accueil** : [http://localhost:8000/index.php](http://localhost:8000/index.php)
-- 📝 **Liste des articles (test)** : [http://localhost:8000/pages/liste_articles.php](http://localhost:8000/pages/liste_articles.php)
+- 🏠 **Page d'accueil** : [http://localhost/](http://localhost/)
+- 📝 **Liste des articles (CRUD)** : [http://localhost/pages/liste_articles.php](http://localhost/pages/liste_articles.php)
+- 🧪 **Tests automatisés** : [http://localhost/pages/tests.php](http://localhost/pages/tests.php)
 
 ---
 
 ## 📁 Structure du projet
+
 ```
-blog_jdr/
-├── config/
-│   └── database.php              # Configuration connexion BDD
+blog_jdr_DOCKER/
+├── docker-compose.yml            # Configuration Docker
+├── Dockerfile                    # Image PHP + Apache
+├── database.php                  # Connexion PDO centralisée
+├── index.php                     # Page d'accueil
+├── database/
+│   └── blog_jdr.sql              # Script SQL (tables + données)
+├── includes/
+│   └── functions.php             # Fonctions métier CRUD
 ├── pages/
-│   ├── index.php                 # Page d'accueil
-│   ├── liste_articles.php        # Affichage des articles (démo)
-│   └── creer_utilisateur.php     # Test création utilisateur
-├── assets/
-│   ├──css/
-│   │   ├── style_index.css       # Styles de base
-│   │   └── responsive_index.css  # Mobile & Tablette
-│   ├──fonts/                     # Polices du blog
-│   ├──images/                    # Images du blog
-│   └──js/                        # Scripts JavaScript du blog
-├── blog_jdr.sql              # Script de création BDD
-└── README.md                 # Cette documentation
+│   ├── articles.html             # Affichage articles (front)
+│   ├── liste_articles.php        # CRUD liste articles
+│   ├── creer_article.php         # Création article + upload
+│   ├── update_article.php        # Modification article
+│   ├── delete_article.php        # Suppression article
+│   ├── liste_utilisateurs.php    # CRUD liste utilisateurs
+│   ├── creer_utilisateur.php     # Création utilisateur
+│   ├── update_utilisateur.php    # Modification utilisateur
+│   ├── delete_utilisateur.php    # Suppression utilisateur
+│   ├── liste_commentaires.php    # CRUD liste commentaires
+│   ├── creer_commentaire.php     # Création commentaire
+│   ├── delete_commentaire.php    # Suppression commentaire
+│   └── tests.php                 # Tests automatisés
+└── assets/
+    ├── css/                      # Styles (6 fichiers + responsive)
+    ├── js/                       # Scripts JavaScript
+    ├── fonts/                    # Polices personnalisées
+    └── images/                   # Images uploadées
 ```
 
 ---
 
-## 🔒 Sécurité
+## 🗄️ Base de données
 
-Le projet implémente plusieurs mesures de sécurité :
+### Schéma relationnel
 
-✅ **Hashage des mots de passe** avec bcrypt (cost 12)
-✅ **Requêtes préparées PDO** (protection contre injection SQL)
-✅ **Protection XSS** avec `htmlspecialchars()`
-✅ **Validation des entrées** (regex, filtres PHP)
-✅ **Sanitization LocalStorage** (protection contre code malveillant)
+**3 tables principales :**
+
+1. **`utilisateur`**
+   - `auteur_id` (PK, AUTO_INCREMENT)
+   - `pseudo` (UNIQUE)
+   - `email` (UNIQUE)
+   - `mot_de_passe` (hashé bcrypt)
+   - `date_inscription`
+
+2. **`article`**
+   - `article_id` (PK, AUTO_INCREMENT)
+   - `titre`
+   - `contenu`
+   - `extrait`
+   - `categorie` (ENUM: Scénarios, Règles, Matériel, Univers, Conseils)
+   - `image_url`
+   - `date_publication`
+   - `auteur_id` (FK → utilisateur, CASCADE)
+
+3. **`commentaire`**
+   - `commentaire_id` (PK, AUTO_INCREMENT)
+   - `contenu_commentaire`
+   - `date_commentaire`
+   - `note` (1-5, CHECK constraint)
+   - `auteur_id` (FK → utilisateur, CASCADE)
+   - `article_id` (FK → article, CASCADE)
+
+**Contraintes CASCADE** : La suppression d'un utilisateur supprime automatiquement ses articles et commentaires.
 
 ---
 
-## 🧪 Tests
+## 🔧 Fonctionnalités
 
-### Tester la connexion à la BDD
+### CRUD Complet
+
+**Articles :**
+- ✅ Création avec upload d'images sécurisé
+- ✅ Modification (conserve ou remplace l'image)
+- ✅ Suppression (+ suppression automatique de l'image)
+- ✅ Liste avec pagination et filtres
+
+**Utilisateurs :**
+- ✅ Création avec hashage bcrypt
+- ✅ Modification (pseudo, email, mot de passe optionnel)
+- ✅ Suppression (CASCADE vers articles/commentaires)
+
+**Commentaires :**
+- ✅ Création avec note (1-5 étoiles)
+- ✅ Affichage par article
+- ✅ Suppression
+
+### Upload d'images
+- Formats : JPG, PNG, GIF, WebP
+- Taille max : 5 MB
+- Noms uniques : `article_[uniqid].ext`
+- Suppression automatique lors de la suppression d'article
+
+### Sécurité
+- **Requêtes préparées PDO** : Protection injection SQL
+- **Validation stricte** : Regex, filtres, contraintes
+- **Hashage bcrypt** : Mot de passe (cost 12)
+- **Sanitization** : `htmlspecialchars()` sur toutes les sorties
+- **Upload sécurisé** : Vérification MIME type + taille
+
+---
+
+## 🧪 Tests automatisés
+
+**Page de tests** : [http://localhost/pages/tests.php](http://localhost/pages/tests.php)
+
+**9 catégories testées :**
+1. ✅ Connexion base de données
+2. ✅ Fonctions métier CRUD (toutes les fonctions de functions.php)
+3. ✅ Hashage bcrypt
+4. ✅ Protection injection SQL
+5. ✅ Requêtes préparées
+6. ✅ CRUD Articles
+7. ✅ CRUD Utilisateurs
+8. ✅ Gestion utilisateurs
+9. ✅ Articles et commentaires
+
+**Résultat** : Affichage en temps réel avec statut ✅/❌ pour chaque test.
+
+---
+
+## 🔒 Principe DRY (Don't Repeat Yourself)
+
+**Fichier `includes/functions.php`** : Toutes les opérations CRUD centralisées
+
+**Fonctions disponibles :**
+- `getArticles()`, `getArticleById()`, `getArticlesByCategorie()`
+- `creerArticle()`, `modifierArticle()`, `supprimerArticle()`
+- `creerUtilisateur()`, `modifierUtilisateur()`, `supprimerUtilisateur()`
+- `creerCommentaire()`, `supprimerCommentaire()`
+- `uploadImageArticle()` - Gestion upload sécurisé
+- `nettoyerImagesOrphelines()` - Nettoyage automatique
+
+**Avantages :**
+- ✅ Pas de duplication de code
+- ✅ Maintenance simplifiée
+- ✅ Validations uniformes
+- ✅ Tests centralisés
+
+---
+
+## 🐳 Commandes Docker utiles
+
 ```bash
-php pages/test.php
+# Démarrer les conteneurs
+docker-compose up -d
+
+# Arrêter les conteneurs
+docker-compose down
+
+# Voir les logs
+docker-compose logs -f
+
+# Accéder au conteneur PHP
+docker exec -it blog_jdr_web bash
+
+# Accéder à MySQL
+docker exec -it blog_jdr_mysql mysql -u root -prootpassword blog_jdr
+
+# Reconstruire les conteneurs
+docker-compose up -d --build
 ```
-
-Vous devriez voir : `✅ Connexion à la base de données réussie !`
-
-### Tester la création d'utilisateur
-
-Accédez à : [http://localhost:8000/pages/creer_utilisateur.php](http://localhost:8000/pages/creer_utilisateur.php)
 
 ---
 
 ## 🐛 Dépannage
 
-### Erreur : "Access denied for user 'root'@'localhost'"
-➡️ Vérifiez le mot de passe dans `config/database.php`
-
-### Erreur : "Could not find driver"
-➡️ Activez l'extension PDO MySQL dans `php.ini` :
-```ini
-extension=pdo_mysql
-```
-
-### Page blanche
-➡️ Activez l'affichage des erreurs :
-```php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-```
-
-### Port 8000 déjà utilisé
-➡️ Utilisez un autre port :
+### Les conteneurs ne démarrent pas
 ```bash
-php -S localhost:8080
+# Vérifier les logs
+docker-compose logs
+
+# Nettoyer et reconstruire
+docker-compose down -v
+docker-compose up -d --build
+```
+
+### Erreur "Port 80 déjà utilisé"
+➡️ Modifiez le port dans `docker-compose.yml` :
+```yaml
+ports:
+  - "8080:80"
+```
+
+### Images non affichées
+➡️ Vérifiez les permissions du dossier `assets/images/` :
+```bash
+chmod -R 755 assets/images/
 ```
 
 ---
 
 ## 📦 Déploiement en production
 
-**⚠️ Avant de déployer en production :**
+**⚠️ Avant de déployer :**
 
-1. **Désactiver l'affichage des erreurs** dans `php.ini` :
-```ini
-   display_errors = Off
-```
-
-2. **Utiliser des variables d'environnement** pour les credentials BDD
-
-3. **Activer HTTPS** (certificat SSL)
-
-4. **Configurer un serveur web** (Apache ou Nginx) au lieu du serveur PHP built-in
-
-5. **Optimiser les performances** :
-   - Minifier CSS/JS
-   - Compresser les images
-   - Activer le cache navigateur
+1. **Désactiver l'affichage des erreurs** dans PHP
+2. **Changer les credentials** MySQL (pas root/rootpassword)
+3. **Utiliser HTTPS** (certificat SSL)
+4. **Optimiser les images** (compression)
+5. **Activer le cache** navigateur
+6. **Sauvegardes régulières** de la BDD
 
 ---
 
 ## 👤 Auteur
 
 **Mélody** - Développeuse Web & Web Mobile  
-Projet réalisé dans le cadre de la formation DWWM - ENACO (2025)
+Projet réalisé dans le cadre de la formation ENACO DWWM (2026)
 
 ---
 
 ## 📄 Licence
 
-Ce projet est développé dans un cadre pédagogique pour l'association "La Compagnie des Âmes égarées".
+Ce projet est développé dans un cadre pédagogique.
 
 ---
 
 ## 🔗 Liens utiles
 
+- [Documentation Docker](https://docs.docker.com/)
 - [Documentation PHP](https://www.php.net/docs.php)
 - [Documentation MySQL](https://dev.mysql.com/doc/)
 - [Guide PDO](https://www.php.net/manual/fr/book.pdo.php)
 
 ---
 
-**Bon développement ! 🎲✨**# projet_examen_fullstack_blog_jdr
+**Bon développement ! 🎲✨**
